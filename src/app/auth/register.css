@@ -1,0 +1,19 @@
+#registration-from {
+    transform: rotateY(180deg);
+    /* transform: perspective('3d'); */
+    backface-visibility: hidden;
+    transition: all 1s;
+}
+
+#bgImg{
+    height: calc(100vh - 80px);
+}
+
+#loader_id{
+    height: calc(100vh - 80px);
+}
+
+#login-from {
+    transform: rotateY(0deg);
+    transition: all 1s;
+}

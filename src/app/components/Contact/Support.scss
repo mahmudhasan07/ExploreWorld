@@ -1,0 +1,17 @@
+$color1 : #e92f8f;
+$color2 : #6508c3;
+$text_style : "Poetsen One, sans-serif";
+
+.title-text{
+    // color: $color2;
+    font-family: $text_style;
+    // font-style: ;
+}
+
+#button_Submit{
+    background: linear-gradient(to right, #e92f8f, #6508c3 );
+    transition: all .5s;
+}
+#button_Submit:hover{
+    transform: scale(1.1);
+}

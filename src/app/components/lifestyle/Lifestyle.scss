@@ -1,0 +1,22 @@
+$text_style : "Poetsen One", sans-serif;
+$color1 : #e92f8f;
+$color2 : #6508c3;
+
+#title {
+    font-family: $text_style;
+    color: $color2;
+}
+
+#div1>p {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+}
+#div1:hover >p {
+    position: absolute;
+    display: block;
+}
+
+#div1:hover > img {
+    opacity: 0.25;
+}

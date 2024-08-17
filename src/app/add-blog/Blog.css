@@ -1,0 +1,13 @@
+#button_Submit{
+    background: linear-gradient(to right, #e92f8f, #6508c3 );
+    transition: all .5s;
+}
+#button_Submit:hover{
+    transform: scale(1.10);
+}
+
+#add_blog{
+    height: calc(100vh);
+    /* align-items: center; */
+    /* background-color: yellow; */
+}
