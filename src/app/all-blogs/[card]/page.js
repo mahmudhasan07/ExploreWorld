@@ -3,10 +3,12 @@ import useAxios, { AxiosSource } from "@/app/Hooks/useAxios";
 import CardDetails from "./CardDetails";
 import useFetch1 from "@/app/Hooks/useFetch1";
 import useFetch2 from "@/app/Hooks/useFetch2";
-import axios from "axios";
-import { headers } from "next/headers";
 import '../../components/lifestyle/Lifestyle.scss'
 
+
+export async function generateStaticParams(){
+
+}
 
 export const generateMetadata = async({params})=> {
     const axiosLink = useAxios(AxiosSource)
