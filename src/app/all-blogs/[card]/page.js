@@ -6,10 +6,6 @@ import useFetch2 from "@/app/Hooks/useFetch2";
 import '../../components/lifestyle/Lifestyle.scss'
 
 
-export async function generateStaticParams(){
-
-}
-
 export const generateMetadata = async({params})=> {
     const axiosLink = useAxios(AxiosSource)
     const cards = await axiosLink.get(`/blogs/${params.card}`)

@@ -24,21 +24,29 @@ const CardDetails = ({ params }) => {
     const axiosLink = useAxios(AxiosSource)
     const { user } = useContext(ContextSource)
     const [ratting, setRatting] = useState();
-    console.log(user);
+    const [likes, setLikes] = useState([]);
+    // console.log(user);
 
     const commentInput = useRef()
 
     const rate = [1, 2, 3, 4, 5]
+
+    useEffect(() => {
+        if (data != "l") {
+            setLikes(data?.likes)
+        }
+    }, []);
 
     const handlebutton = () => {
         setLike(!like)
         console.log(like);
 
         if (like == true) {
-            setCount(count + 1)
-            axiosLink.patch(`/blogs/${params.card}`, { count })
+            setLikes(e=> e.concat(user?.email))
+            console.log(likes);
+            axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
-                    console.log();
+                    console.log(res);
 
                 })
                 .catch(err => {
@@ -48,9 +56,13 @@ const CardDetails = ({ params }) => {
 
         }
         if (like == false) {
-            setCount(count - 1)
+            
         }
     }
+
+
+
+    
 
 
     const handleComment = () => {
@@ -60,15 +72,15 @@ const CardDetails = ({ params }) => {
         console.log(comment);
 
         axiosLink.patch(`/blogs/${data?._id}`, comment)
-        .then(res=>{
-            console.log(res);
-            
-        })
-        .catch(err=>{
-            console.log(err);
-            
-        })
-        
+            .then(res => {
+                console.log(res);
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+
 
 
     }

@@ -9,7 +9,7 @@ const nextConfig = {
         unoptimized : true
     },
     // distDir : "out",
-    output: 'export',
+    // output: 'export',
     // experimental: {
     //     serverActions: true,
     // },
