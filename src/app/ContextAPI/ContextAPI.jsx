@@ -9,7 +9,7 @@ const ContextAPI = ({ children }) => {
 
     
     useEffect(() => {
-        console.log(loader);
+        // console.log(loader);
         if (loader == false) {
             const userDetails = useAuth?.getCurrentUser()
             if (userDetails) {

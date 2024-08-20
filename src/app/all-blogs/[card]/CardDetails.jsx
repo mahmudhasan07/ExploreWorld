@@ -24,26 +24,28 @@ const CardDetails = ({ params }) => {
     const axiosLink = useAxios(AxiosSource)
     const { user } = useContext(ContextSource)
     const [ratting, setRatting] = useState();
-    const [likes, setLikes] = useState([]);
-    // console.log(user);
+    // const [likes, setLikes] = useState([]);
+    const likes = []
+    // console.log(data);
 
     const commentInput = useRef()
 
     const rate = [1, 2, 3, 4, 5]
 
-    useEffect(() => {
-        if (data != "l") {
-            setLikes(data?.likes)
-        }
-    }, []);
+    if(data != "l"){
+        const likeFilter = data?.likes.filter(e=> e== user?.email)
+        setLike(likeFilter)
+    }
+
+   
 
     const handlebutton = () => {
-        setLike(!like)
-        console.log(like);
+        // setLike(!like)
+        // console.log(like);
 
-        if (like == true) {
-            setLikes(e=> e.concat(user?.email))
-            console.log(likes);
+        if (like != user?.email) {
+            likes.push(user?.email)
+            // console.log(likes);
             axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
                     console.log(res);
@@ -52,11 +54,24 @@ const CardDetails = ({ params }) => {
                 .catch(err => {
                     console.log(err);
 
+
                 })
 
         }
-        if (like == false) {
-            
+        if (like == user?.email) {
+            likes.pop()
+            // console.log(likes);
+            axiosLink.patch(`/blogs/${params.card}`, { likes })
+                .then(res => {
+                    console.log(res);
+
+                })
+                .catch(err => {
+                    console.log(err);
+                    
+
+                })
+
         }
     }
 
@@ -113,11 +128,11 @@ const CardDetails = ({ params }) => {
                                     }
                                 </Swiper>
                             </div>
-                            <div className=' w-1/3 my-auto space-y-2 h-fit'>
+                            <div className=' w-1/3 mt-[5%] space-y-2 h-fit'>
                                 <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
-                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handlebutton}>{like == false ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {count}</h1>
+                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handlebutton}>{like == user?.email ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {count}</h1>
 
 
 

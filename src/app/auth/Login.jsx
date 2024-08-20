@@ -20,7 +20,7 @@ const Login = () => {
     const onSubmit = data => {
         setSuccess(true)
         if (validateCaptcha(data?.code) == true) {
-            console.log(data);
+            // console.log(data);
 
             // console.log("condition");
             const user = new CognitoUser({
