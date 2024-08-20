@@ -34,7 +34,7 @@ const CardDetails = ({ params }) => {
 
     if(data != "l"){
         const likeFilter = data?.likes.filter(e=> e== user?.email)
-        setLike(likeFilter)
+        // setLike(likeFilter)
     }
 
    
