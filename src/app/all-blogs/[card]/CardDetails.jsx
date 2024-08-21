@@ -39,9 +39,7 @@ const CardDetails = ({ params }) => {
 
    
 
-    const handlebutton = () => {
-        // setLike(!like)
-        // console.log(like);
+    const handleButton = () => {
 
         if (like != user?.email) {
             likes.push(user?.email)
@@ -132,7 +130,7 @@ const CardDetails = ({ params }) => {
                                 <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
-                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handlebutton}>{like == user?.email ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {count}</h1>
+                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like == user?.email ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {count}</h1>
 
 
 
