@@ -18,35 +18,40 @@ import { ContextSource } from '@/app/ContextAPI/ContextAPI';
 
 const CardDetails = ({ params }) => {
 
-    const [like, setLike] = useState(true);
+    const [like, setLike] = useState(false);
     const [count, setCount] = useState(10)
     const [data, refetch] = useFetch2("blogs", params?.card)
     const axiosLink = useAxios(AxiosSource)
     const { user } = useContext(ContextSource)
     const [ratting, setRatting] = useState();
     // const [likes, setLikes] = useState([]);
-    const likes = []
+    const likes = data?.likes
     // console.log(data);
 
     const commentInput = useRef()
 
     const rate = [1, 2, 3, 4, 5]
 
-    if(data != "l"){
-        const likeFilter = data?.likes.filter(e=> e== user?.email)
-        // setLike(likeFilter)
-    }
+    setInterval(() => {
+        if(like == false){
+            const likeFilter = data?.likes?.find(e => e == user?.email)
+        if (likeFilter) {
+            // console.log(likeFilter);
+            setLike(true)
+        }
+        }
+    }, 1000);
 
-   
 
     const handleButton = () => {
 
-        if (like != user?.email) {
+        if (like == false) {
             likes.push(user?.email)
             // console.log(likes);
             axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
                     console.log(res);
+                    refetch()
 
                 })
                 .catch(err => {
@@ -56,17 +61,19 @@ const CardDetails = ({ params }) => {
                 })
 
         }
-        if (like == user?.email) {
+        if (like == true) {
             likes.pop()
             // console.log(likes);
             axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
                     console.log(res);
+                    // setLike(false)
+                    refetch()
 
                 })
                 .catch(err => {
                     console.log(err);
-                    
+
 
                 })
 
@@ -75,7 +82,7 @@ const CardDetails = ({ params }) => {
 
 
 
-    
+
 
 
     const handleComment = () => {
@@ -130,7 +137,7 @@ const CardDetails = ({ params }) => {
                                 <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
-                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like == user?.email ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {count}</h1>
+                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like == true ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {data?.likes.length}</h1>
 
 
 

@@ -41,6 +41,7 @@ const Login = () => {
                     navigate.push("/")
                 },
                 onFailure: (err) => {
+                    setSuccess(false)
                     console.log(err);
                 }
             })
