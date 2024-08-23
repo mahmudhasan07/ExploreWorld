@@ -13,7 +13,7 @@ import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 import { ContextSource } from '@/app/ContextAPI/ContextAPI';
 
 const CardDetails = ({ params }) => {
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState("");
     const [data, refetch] = useFetch2("blogs", params?.card)
     const axiosLink = useAxios(AxiosSource)
     const { user } = useContext(ContextSource)
@@ -29,7 +29,7 @@ const CardDetails = ({ params }) => {
             const likeFilter = data?.likes?.find(e => e == user?.email)
             if (likeFilter) {
                 // console.log(likeFilter);
-                setLike(true)
+                setLike(likeFilter)
             }
         }
     }, 500);
@@ -37,14 +37,13 @@ const CardDetails = ({ params }) => {
 
     const handleButton = () => {
 
-        if (like == false) {
+        if (like != user?.email) {
             likes.push(user?.email)
             // console.log(likes);
             axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
                     console.log(res);
                     refetch()
-
                 })
                 .catch(err => {
                     console.log(err);
@@ -53,13 +52,14 @@ const CardDetails = ({ params }) => {
                 })
 
         }
-        if (like == true) {
+        if (like == user?.email) {
             likes = data?.likes.filter(e=> e != user?.email)
             axiosLink.patch(`/blogs/${params.card}`, { likes })
                 .then(res => {
-                    console.log(res);
+                    setLike("")
                     refetch()
-                    setLike(false)
+                    console.log(res);
+                    
 
                 })
                 .catch(err => {
@@ -122,7 +122,7 @@ const CardDetails = ({ params }) => {
                                 <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
-                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like == true ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {data?.likes.length}</h1>
+                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {data?.likes.length}</h1>
                             </div>
                         </div>
                         <div className='flex justify-around p-2'>
