@@ -1,6 +1,6 @@
 'use client'
 import useFetch2 from '@/app/Hooks/useFetch2';
-import React, { useContext,  useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -19,60 +19,61 @@ const CardDetails = ({ params }) => {
     const { user } = useContext(ContextSource)
     const [ratting, setRatting] = useState();
     let likes = data?.likes
-    // console.log(data);
 
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
 
-    const likesCount = setInterval(() => {
+    // const likesCount = setInterval(() => {
         const likeFilter = data?.likes?.find(e => e == user?.email)
         if (likeFilter) {
+    //         clearInterval(likesCount)
             setLike(true)
-            console.log(like);
-            clearInterval(likesCount)
         }
 
-    }, 1000);
+    // }, 1000);
 
-
-    const handleButton = () => {
-
-        if (like == false) {
-            likes.push(user?.email)
-            // console.log(likes);
-            axiosLink.patch(`/blogs/${params.card}`, { likes })
-                .then(res => {
-                    console.log(res);
-                    refetch()
-                    setLike(true)
-                })
-                .catch(err => {
-                    console.log(err);
-
-
-                })
-
+    useEffect(() => {
+        if(data == "l"){
+            return
         }
-        if (like == true) {
-            likes = data?.likes.filter(e => e != user?.email)
-            axiosLink.patch(`/blogs/${params.card}`, { likes })
-                .then(res => {
-                    refetch()
-                    setLike(false)
-
-
-                })
-                .catch(err => {
-                    console.log(err);
-
-
-                })
-
+        else{
+            setLike(true)
         }
+    }, []);
+
+
+    const handleLike = () => {
+        likes.push(user?.email)
+        // console.log(likes);
+        axiosLink.patch(`/blogs/${params.card}`, { likes })
+            .then(res => {
+                console.log(res);
+                refetch()
+                setLike(true)
+                // clearInterval(likesCount)
+            })
+            .catch(err => {
+                console.log(err);
+
+
+            })
     }
 
-    console.log(like);
+    const handleDislike = () => {
+        likes = data?.likes.filter(e => e != user?.email)
+        axiosLink.patch(`/blogs/${params.card}`, { likes })
+            .then(res => {
+                // clearInterval(likesCount)
+                refetch()
+                setLike(false)
 
+            })
+            .catch(err => {
+                console.log(err);
+
+
+            })
+    }
 
     const handleComment = () => {
         const text = commentInput.current.value
@@ -123,7 +124,14 @@ const CardDetails = ({ params }) => {
                                 <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
-                                <h1 className='text-xl font-bold flex gap-3'>Likes: <button onClick={handleButton}>{like == true ? <p className='h-full text-2xl -mt-3 -ml-1'>❤️</p> : <FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart} size='fa-solid' />}</button> {data?.likes.length}</h1>
+                                <h1 className='text-xl font-bold flex gap-3'>Likes:
+                                    {like == false ?
+                                        <button onClick={handleLike}><FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart}
+                                            size='fa-solid' /></button>
+                                        :
+
+                                        <button onClick={handleDislike} className='h-full text-2xl'>❤️</button>}
+                                    {data?.likes.length}</h1>
                             </div>
                         </div>
                         <div className='flex justify-around p-2'>
