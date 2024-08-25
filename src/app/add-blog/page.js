@@ -1,10 +1,5 @@
-// 'use client'
-// import { headers } from "next/headers";
-// import { usePathname } from "next/navigation";
 import Blog from "./Blog";
 import "./Blog.css"
-
-
 
 export async function generateMetadata() {
 
@@ -15,19 +10,7 @@ export async function generateMetadata() {
 }
 
 
-// export const metadata = {
-//     title: "Add Your Blog",
-//     description: "Explore world with lot of memories",
-// };
-
-export default function AddBlog({ }) {
-    // const headerList = headers();
-    // const domain = headerList.get("referer")
-    // const pathName = domain.split("/")
-    // console.log(pathName[3]);
-
-
-
+export default function AddBlog() {
 
     return (
         <section id="add_blog" className="bg-[#c0b2f3] relative  ">

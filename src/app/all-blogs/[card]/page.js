@@ -1,8 +1,6 @@
 
 import useAxios, { AxiosSource } from "@/app/Hooks/useAxios";
 import CardDetails from "./CardDetails";
-import useFetch1 from "@/app/Hooks/useFetch1";
-import useFetch2 from "@/app/Hooks/useFetch2";
 import '../../components/lifestyle/Lifestyle.scss'
 
 

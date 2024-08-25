@@ -18,6 +18,7 @@ export default function Home() {
       <Banner></Banner>
       <Lifestyle></Lifestyle>
       <Support></Support>
+      
     </>
   );
 }

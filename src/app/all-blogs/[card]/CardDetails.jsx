@@ -7,10 +7,10 @@ import 'swiper/css/pagination';
 import { Keyboard, Mousewheel, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './Card.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 import { ContextSource } from '@/app/ContextAPI/ContextAPI';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const CardDetails = ({ params }) => {
     const [like, setLike] = useState(false);
@@ -22,24 +22,27 @@ const CardDetails = ({ params }) => {
 
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
-    useEffect(() => {
-        if (user) {
-            console.log(user);
-            
-            const likeFilter = axiosLink.get(`/likes/${params?.card}`, {user : user?.email})
-            console.log(likeFilter);            
-            if (likeFilter) {
-                setLike(true)
-            }
-            else{
-                return
-            }
-        }
-    }, []);
+    // useEffect(() => {
+
+    // }, [axiosLink]);
+
+    const likeCounter = setInterval(() => {
+        axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
+            .then(res => {
+                if (res.data) {
+                    console.log(res?.data);
+                    setLike(true)
+                    clearInterval(likeCounter)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                clearInterval(likeCounter)
+            })
+    }, 800);
 
     const handleLike = () => {
         likes.push(user?.email)
-        // console.log(likes);
         axiosLink.patch(`/blogs/${params.card}`, { likes })
             .then(res => {
                 refetch()
@@ -84,7 +87,7 @@ const CardDetails = ({ params }) => {
 
             })
     }
-console.log(like);
+    console.log(like);
 
     return (
         <section>
@@ -120,12 +123,12 @@ console.log(like);
                                     {
 
                                         like == false ?
-                                            <button onClick={handleLike}><FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart}
-                                                size='fa-solid' /></button>
+                                            <button onClick={handleLike}><FavoriteBorderIcon fontSize='large' className='text-3xl -mt-1'></FavoriteBorderIcon></button>
                                             :
 
-                                            <button onClick={handleDislike} className='h-full text-2xl -mt-3 -ml-1'>❤️</button>}
+                                            <button onClick={handleDislike}> <FavoriteIcon fontSize='large' className=' text-red-500 -mt-1'></FavoriteIcon></button>}
                                     {data?.likes.length}</h1>
+
                             </div>
                         </div>
                         <div className='flex justify-around p-2'>

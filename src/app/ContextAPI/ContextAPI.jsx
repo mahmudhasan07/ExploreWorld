@@ -5,12 +5,12 @@ import useAuth from '../auth/useAuth';
 export const ContextSource = createContext()
 const ContextAPI = ({ children }) => {
     const [user, setUser] = useState();
-    const [loader, setloader] = useState(false)
+    const [loader, setloader] = useState(true)
 
     
     useEffect(() => {
         // console.log(loader);
-        if (loader == false) {
+        if (loader == true) {
             const userDetails = useAuth?.getCurrentUser()
             if (userDetails) {
                 userDetails?.getSession((err, res) => {

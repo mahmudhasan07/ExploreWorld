@@ -44,7 +44,7 @@ export default function NavBar() {
     const handleLogOut = () => {
         const userDetails = useAuth.getCurrentUser()
         userDetails.signOut()
-        setloader(true)
+        setloader(false)
         navigate.push('/')
     }
     return (

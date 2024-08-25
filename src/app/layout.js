@@ -1,10 +1,7 @@
-
 import "./globals.css";
 import NavBar from "./navbar";
 import TankStackQuery from "./Hooks/TankStackQuery";
 import ContextAPI from "./ContextAPI/ContextAPI";
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -15,8 +12,9 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+        {/* <script src="https://kit.fontawesome.com/41a0e61ba0.js" crossorigin="anonymous"></script> */}
       </head>
-      <body className="max-w">
+      <body>
         <ContextAPI>
         <NavBar></NavBar>
           <TankStackQuery>
