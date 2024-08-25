@@ -22,35 +22,28 @@ const CardDetails = ({ params }) => {
 
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
-
-    // const likesCount = setInterval(() => {
-        const likeFilter = data?.likes?.find(e => e == user?.email)
-        if (likeFilter) {
-    //         clearInterval(likesCount)
-            setLike(true)
-        }
-
-    // }, 1000);
-
     useEffect(() => {
-        if(data == "l"){
-            return
-        }
-        else{
-            setLike(true)
+        if (user) {
+            console.log(user);
+            
+            const likeFilter = axiosLink.get(`/likes/${params?.card}`, {user : user?.email})
+            console.log(likeFilter);            
+            if (likeFilter) {
+                setLike(true)
+            }
+            else{
+                return
+            }
         }
     }, []);
-
 
     const handleLike = () => {
         likes.push(user?.email)
         // console.log(likes);
         axiosLink.patch(`/blogs/${params.card}`, { likes })
             .then(res => {
-                console.log(res);
                 refetch()
                 setLike(true)
-                // clearInterval(likesCount)
             })
             .catch(err => {
                 console.log(err);
@@ -61,11 +54,11 @@ const CardDetails = ({ params }) => {
 
     const handleDislike = () => {
         likes = data?.likes.filter(e => e != user?.email)
+        setLike(false)
         axiosLink.patch(`/blogs/${params.card}`, { likes })
             .then(res => {
-                // clearInterval(likesCount)
-                refetch()
                 setLike(false)
+                refetch()
 
             })
             .catch(err => {
@@ -91,8 +84,7 @@ const CardDetails = ({ params }) => {
 
             })
     }
-
-
+console.log(like);
 
     return (
         <section>
@@ -125,12 +117,14 @@ const CardDetails = ({ params }) => {
                                 <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
                                 <h1 className='text-xl font-bold flex gap-3'>Likes:
-                                    {like == false ?
-                                        <button onClick={handleLike}><FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart}
-                                            size='fa-solid' /></button>
-                                        :
+                                    {
 
-                                        <button onClick={handleDislike} className='h-full text-2xl'>❤️</button>}
+                                        like == false ?
+                                            <button onClick={handleLike}><FontAwesomeIcon className='font-extrabold text-2xl' icon={faHeart}
+                                                size='fa-solid' /></button>
+                                            :
+
+                                            <button onClick={handleDislike} className='h-full text-2xl -mt-3 -ml-1'>❤️</button>}
                                     {data?.likes.length}</h1>
                             </div>
                         </div>
