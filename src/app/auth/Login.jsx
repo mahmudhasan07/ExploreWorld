@@ -37,7 +37,7 @@ const Login = () => {
                 onSuccess: (result) => {
                     console.log(result);
                     setSuccess(false)
-                    setloader(true)
+                    // setloader(false)
                     navigate.push("/")
                 },
                 onFailure: (err) => {

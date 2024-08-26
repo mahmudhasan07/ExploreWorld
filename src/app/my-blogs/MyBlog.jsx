@@ -1,9 +1,11 @@
 'use client'
 import React, { useContext } from 'react';
 import { ContextSource } from '../ContextAPI/ContextAPI';
+import useFetch2 from '../Hooks/useFetch2';
 
 const MyBlog = () => {
     const {user} = useContext(ContextSource)
+    const [data, refetch] = useFetch2()
 
     return (
         <section>

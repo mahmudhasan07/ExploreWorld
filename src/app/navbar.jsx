@@ -15,7 +15,6 @@ export default function NavBar() {
     const navigate = useRouter()
     const routePath = usePathname()
     const [hoveredIndex, setHoveredIndex] = useState(null)
-    const [hidden, sethidden] = useState("hidden");
     // const  router = useRouter()
     // console.log(user);
 
@@ -44,7 +43,7 @@ export default function NavBar() {
     const handleLogOut = () => {
         const userDetails = useAuth.getCurrentUser()
         userDetails.signOut()
-        setloader(false)
+        setloader(true)
         navigate.push('/')
     }
     return (

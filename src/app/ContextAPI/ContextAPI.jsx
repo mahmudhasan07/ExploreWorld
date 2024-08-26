@@ -7,26 +7,23 @@ const ContextAPI = ({ children }) => {
     const [user, setUser] = useState();
     const [loader, setloader] = useState(true)
 
-    
+
     useEffect(() => {
         // console.log(loader);
-        if (loader == true) {
-            const userDetails = useAuth?.getCurrentUser()
+        const userDetails = useAuth?.getCurrentUser()
             if (userDetails) {
                 userDetails?.getSession((err, res) => {
                     if (res) {
                         setUser(res?.idToken?.payload)
+                        if(user){
+                            setloader(false)
+                        }
+                        // setloader(true)
                         // clearInterval(findUser)
-
 
                     }
                 })
             }
-        }
-        else {
-            setUser(null)
-            return
-        }
 
     }, [loader]);
     // console.log(user);
