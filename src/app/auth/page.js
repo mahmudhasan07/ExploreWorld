@@ -4,7 +4,6 @@ import Registration from "./Registration";
 export const metadata = {
     title: "LogIn"
 }
-
 export default function Authorization() {
     return (
         <section className="relative">

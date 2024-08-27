@@ -8,17 +8,17 @@ import useAuth from "./auth/useAuth";
 // import { useRouter } from "next/router";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSelector } from "react-redux";
 // import { useRouter } from "next/router";
 
 export default function NavBar() {
-    const { user, setloader } = useContext(ContextSource)
+    const { user, setloader, setUser } = useContext(ContextSource)
     const navigate = useRouter()
     const routePath = usePathname()
     const [hoveredIndex, setHoveredIndex] = useState(null)
-    // const  router = useRouter()
-    // console.log(user);
 
-    // const activeRoute = ({path})=> path == "/" ? "underline" : "";
+   
+
 
     const routes = [
         {
@@ -44,6 +44,7 @@ export default function NavBar() {
         const userDetails = useAuth.getCurrentUser()
         userDetails.signOut()
         setloader(true)
+        setUser('')
         navigate.push('/')
     }
     return (
@@ -52,8 +53,8 @@ export default function NavBar() {
                 <Link href={'/'}><Image src={'https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png'} width={200} height={10} className=" my-2 "></Image></Link>
             </div>
             <div className=" my-auto">
-                <ul className={`flex text-xl`}>  
-                {/* framer motion animation a gap dele card section kaj kore na */}
+                <ul className={`flex text-xl`}>
+                    {/* framer motion animation a gap dele card section kaj kore na */}
                     {/* <Link className={path == "/" ? "underline" : "" } href={'/'}>
                         <li >Home</li>
                     </Link>
@@ -67,8 +68,8 @@ export default function NavBar() {
                         <li>My Blog</li>
                     </Link>  */}
                     {
-                        routes.map((e, idx) => <Link  key={idx} href={`/${e.path}`} onMouseEnter={()=> setHoveredIndex(idx)} onMouseLeave={()=> setHoveredIndex(null)} className={routePath == `/${e.path}` ? `underline relative ` : `relative` }>
-                            
+                        routes.map((e, idx) => <Link key={idx} href={`/${e.path}`} onMouseEnter={() => setHoveredIndex(idx)} onMouseLeave={() => setHoveredIndex(null)} className={routePath == `/${e.path}` ? `underline relative ` : `relative`}>
+
                             <AnimatePresence>
                                 {hoveredIndex === idx && (
                                     <motion.span
@@ -87,10 +88,10 @@ export default function NavBar() {
                                 )}
                             </AnimatePresence>
                             <div className="relative mx-2 my-1  z-50" key={idx}>
-                            <li  className="">{e.name}</li>
-                            {/* <p  id="link_id">hello</p> */}
+                                <li className="">{e.name}</li>
+                                {/* <p  id="link_id">hello</p> */}
                             </div>
-                            </Link>)
+                        </Link>)
                     }
                 </ul>
             </div>

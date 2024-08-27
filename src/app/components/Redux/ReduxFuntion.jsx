@@ -9,7 +9,8 @@ const initialState = {
   name: '',
   email: "",
   error: "",
-  success: ""
+  complete: "",
+  pending: ""
 }
 
 const CreateUser = createAsyncThunk(
@@ -28,9 +29,9 @@ const CreateUser = createAsyncThunk(
 
 const LogInUser = createAsyncThunk(
   "auth/LoginUser",
-  async ({email, password}) => {
-    console.log(email,password);
-    
+  async ({ email, password }) => {
+    console.log(email, password);
+
     const User = new CognitoUser({
       Pool: useAuth,
       Username: email
@@ -40,17 +41,30 @@ const LogInUser = createAsyncThunk(
       Password: password
     })
 
-     User.authenticateUser(getUser, ({
-      onSuccess: (res) => {
-        console.log(res);
-        return res
-      },
-      onFailure: (err) => {
-        console.log(err);
-        
-        return err
-      }
-    }))
+    // User.authenticateUser(getUser, ({
+    //   onSuccess: (res) => {
+    //     console.log(res);
+    //     return res
+    //   },
+    //   onFailure: (err) => {
+    //     console.log(err);
+    //     return err
+    //   }
+    // }))
+
+    return await new Promise((resolve, reject) => {
+      User.authenticateUser(getUser, ({
+          onSuccess: (res) => {
+            console.log(res);
+            resolve(res)
+          },
+          onFailure: (err) => {
+            console.log(err);
+            reject(err)
+          }
+        }))
+    })
+
   }
 )
 
@@ -59,23 +73,27 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     setValue: (state) => {
-        state.error = "",
-            state.success = ""
+      state.error = "",
+        state.complete = ""
+      state.pending = ""
     }
 
-},
+  },
   extraReducers: (builder) => {
-    builder.addCase(LogInUser.fulfilled, (sate, payload)=>{
-        sate.success = "success"
-      })
+    builder
+    .addCase(LogInUser.pending, (sate, payload) => {
+      sate.pending = "pending"
+    })
+    .addCase(LogInUser.fulfilled, (sate, payload) => {
+      sate.complete = "success"
+    })
+    .addCase(LogInUser.rejected, (sate, payload) => {
+      sate.error = "reject"
+    })
   }
 })
 
-
-
-// Action creators are generated for each case reducer function
-// export const { LogInUser } = counterSlice.actions
 export const { setValue } = counterSlice.actions
-export {LogInUser, CreateUser}
+export { LogInUser, CreateUser }
 
 export default counterSlice.reducer

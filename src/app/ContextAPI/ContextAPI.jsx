@@ -8,28 +8,24 @@ const ContextAPI = ({ children }) => {
     const [loader, setloader] = useState(true)
 
 
-    useEffect(() => {
-        // console.log(loader);
-        const userDetails = useAuth?.getCurrentUser()
-        console.log(userDetails);
-        
-            if (userDetails) {
-                userDetails?.getSession((err, res) => {
-                    if (res) {
-                        setUser(res?.idToken?.payload)
-                        if(user){
-                            setloader(false)
-                        }
-                        // setloader(true)
-                        // clearInterval(findUser)
 
-                    }
-                })
+    useEffect(() => {
+        // console.log(success);
+        
+    async function findUser() {
+        const userDetails = useAuth?.getCurrentUser()
+        userDetails?.getSession((err, res) => {
+            if (res) {
+                setUser(res?.idToken?.payload)
+                setloader(false)
+
             }
+        })
+       }
 
     }, [loader]);
     // console.log(user);
-    const data = { user, loader, setloader }
+    const data = { user, loader, setloader, setUser }
     return <ContextSource.Provider value={data}>
         {children} </ContextSource.Provider>
 };

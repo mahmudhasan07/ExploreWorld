@@ -1,7 +1,5 @@
 'use client'
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 import React, { useContext, useEffect, useState } from 'react';
-// import { useForm } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from "react-icons/fc";
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
@@ -10,9 +8,8 @@ import { useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
 import loader from "../../../public/loader-2.json"
 import { ContextSource } from '../ContextAPI/ContextAPI';
-import { useDispatch } from 'react-redux';
-import { LogInUser } from '../components/Redux/ReduxFuntion';
-import { Email } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { LogInUser, setValue } from '../components/Redux/ReduxFuntion';
 
 
 const Login = () => {
@@ -20,6 +17,9 @@ const Login = () => {
     const [success, setSuccess] = useState(false)
     const { setloader } = useContext(ContextSource)
     const dispatch = useDispatch()
+    const { complete } = useSelector((state) => state.auth)
+    console.log(complete);
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setSuccess(true)
@@ -52,21 +52,16 @@ const Login = () => {
 
             const email = data?.email
             const password = data?.password
-            console.log(email,password);
-            
+            console.log(email, password);
+
             if (email, password) {
-                dispatch(LogInUser({email, password}))
-                .then(res=>{
-                    console.log(res);
-                    
+                dispatch(setValue())
+                dispatch(LogInUser({ email, password }))
+                if (complete == "success") {
                     setSuccess(false)
-                    // navigate.push("/")
-                })
-                .catch(err=>{
-                    setSuccess(false)
-                    console.log(err);
-                    
-                })
+                    navigate.push("/")
+                }
+
             }
 
 
@@ -83,7 +78,7 @@ const Login = () => {
     }
     useEffect(() => {
         loadCaptchaEnginge(6);
-        const getUser = useAuth.getCurrentUser()
+        // const getUser = useAuth.getCurrentUser()
         // console.log(getUser);
     }, []);
 
