@@ -1,29 +1,36 @@
+'use client'
 import useAuth from '@/app/auth/useAuth'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 
+
+
 const initialState = {
-  value: 0,
+  name: '',
+  email: "",
+  error: "",
+  success: ""
 }
 
-
 const CreateUser = createAsyncThunk(
-  "createUser",
+  "auth/createUser",
   async (email, password, Attributes) => {
     useAuth.signUp(email, password, Attributes, null, (err, res) => {
       if (err) {
         return err
       }
       return res
-      
+
     })
   }
 )
 
 
 const LogInUser = createAsyncThunk(
-  "LoginUser",
-  async (email, password) => {
+  "auth/LoginUser",
+  async ({email, password}) => {
+    console.log(email,password);
+    
     const User = new CognitoUser({
       Pool: useAuth,
       Username: email
@@ -33,13 +40,14 @@ const LogInUser = createAsyncThunk(
       Password: password
     })
 
-    User.confirmRegistration()
-
-    User.authenticateUser(getUser, ({
+     User.authenticateUser(getUser, ({
       onSuccess: (res) => {
+        console.log(res);
         return res
       },
       onFailure: (err) => {
+        console.log(err);
+        
         return err
       }
     }))
@@ -47,18 +55,27 @@ const LogInUser = createAsyncThunk(
 )
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "auth",
   initialState,
   reducers: {
-  },
+    setValue: (state) => {
+        state.error = "",
+            state.success = ""
+    }
+
+},
   extraReducers: (builder) => {
-    builder
-      .addCase()
+    builder.addCase(LogInUser.fulfilled, (sate, payload)=>{
+        sate.success = "success"
+      })
   }
 })
 
 
+
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+// export const { LogInUser } = counterSlice.actions
+export const { setValue } = counterSlice.actions
+export {LogInUser, CreateUser}
 
 export default counterSlice.reducer

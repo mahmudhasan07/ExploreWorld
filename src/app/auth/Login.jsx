@@ -10,12 +10,16 @@ import { useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
 import loader from "../../../public/loader-2.json"
 import { ContextSource } from '../ContextAPI/ContextAPI';
+import { useDispatch } from 'react-redux';
+import { LogInUser } from '../components/Redux/ReduxFuntion';
+import { Email } from '@mui/icons-material';
 
 
 const Login = () => {
     const navigate = useRouter()
     const [success, setSuccess] = useState(false)
-    const {setloader} = useContext(ContextSource)
+    const { setloader } = useContext(ContextSource)
+    const dispatch = useDispatch()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setSuccess(true)
@@ -23,28 +27,48 @@ const Login = () => {
             // console.log(data);
 
             // console.log("condition");
-            const user = new CognitoUser({
-                Pool: useAuth,
-                Username: data?.email
-            })
+            // const user = new CognitoUser({
+            //     Pool: useAuth,
+            //     Username: data?.email
+            // })
 
-            const userDetails = new AuthenticationDetails({
-                Username: data?.email,
-                Password: data?.password
-            })
+            // const userDetails = new AuthenticationDetails({
+            //     Username: data?.email,
+            //     Password: data?.password
+            // })
 
-            user.authenticateUser(userDetails, {
-                onSuccess: (result) => {
-                    console.log(result);
+            // user.authenticateUser(userDetails, {
+            //     onSuccess: (result) => {
+            //         console.log(result);
+            //         setSuccess(false)
+            //         // setloader(false)
+            //         navigate.push("/")
+            //     },
+            //     onFailure: (err) => {
+            //         setSuccess(false)
+            //         console.log(err);
+            //     }
+            // })
+
+            const email = data?.email
+            const password = data?.password
+            console.log(email,password);
+            
+            if (email, password) {
+                dispatch(LogInUser({email, password}))
+                .then(res=>{
+                    console.log(res);
+                    
                     setSuccess(false)
-                    // setloader(false)
-                    navigate.push("/")
-                },
-                onFailure: (err) => {
+                    // navigate.push("/")
+                })
+                .catch(err=>{
                     setSuccess(false)
                     console.log(err);
-                }
-            })
+                    
+                })
+            }
+
 
 
         }

@@ -2,6 +2,8 @@ import "./globals.css";
 import NavBar from "./navbar";
 import TankStackQuery from "./Hooks/TankStackQuery";
 import ContextAPI from "./ContextAPI/ContextAPI";
+import ReduxProvider from "./components/Redux/ReduxProvider";
+
 
 export default function RootLayout({ children }) {
   return (
@@ -16,10 +18,12 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ContextAPI>
-        <NavBar></NavBar>
-          <TankStackQuery>
-            {children}
-          </TankStackQuery>
+          <ReduxProvider>
+            <TankStackQuery>
+            <NavBar></NavBar>
+              {children}
+            </TankStackQuery>
+          </ReduxProvider>
         </ContextAPI>
 
       </body>

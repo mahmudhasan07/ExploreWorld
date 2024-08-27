@@ -11,6 +11,8 @@ const ContextAPI = ({ children }) => {
     useEffect(() => {
         // console.log(loader);
         const userDetails = useAuth?.getCurrentUser()
+        console.log(userDetails);
+        
             if (userDetails) {
                 userDetails?.getSession((err, res) => {
                     if (res) {
