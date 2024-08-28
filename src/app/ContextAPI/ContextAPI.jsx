@@ -6,22 +6,25 @@ export const ContextSource = createContext()
 const ContextAPI = ({ children }) => {
     const [user, setUser] = useState();
     const [loader, setloader] = useState(true)
-
-
-
+    console.log(user);
+    
     useEffect(() => {
-        // console.log(success);
-        
-        const userDetails = useAuth?.getCurrentUser()
-        userDetails?.getSession((err, res) => {
-            if (res) {
-                setUser(res?.idToken?.payload)
-                setloader(false)
-
-            }
-        })
+        const userIdentifier = setInterval(() => {
+            const userDetails = useAuth?.getCurrentUser()
+            userDetails?.getSession((err, res) => {
+                if (res) {
+                    setUser(res?.idToken?.payload)
+                    setloader(false)
+                    clearInterval(userIdentifier)
+    
+                }
+            })
+        }, 500);
 
     }, [loader]);
+
+    
+
     // console.log(user);
     const data = { user, loader, setloader, setUser }
     return <ContextSource.Provider value={data}>

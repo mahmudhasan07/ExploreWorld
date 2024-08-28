@@ -15,11 +15,13 @@ const initialState = {
 
 const CreateUser = createAsyncThunk(
   "auth/createUser",
-  async (email, password, Attributes) => {
+  async ({email, password, Attributes}) => {
     useAuth.signUp(email, password, Attributes, null, (err, res) => {
       if (err) {
         return err
       }
+      console.log(res);
+
       return res
 
     })
@@ -54,17 +56,16 @@ const LogInUser = createAsyncThunk(
 
     return await new Promise((resolve, reject) => {
       User.authenticateUser(getUser, ({
-          onSuccess: (res) => {
-            console.log(res);
-            resolve(res)
-          },
-          onFailure: (err) => {
-            console.log(err);
-            reject(err)
-          }
-        }))
+        onSuccess: (res) => {
+          console.log(res);
+          resolve(res)
+        },
+        onFailure: (err) => {
+          console.log(err);
+          reject(err)
+        }
+      }))
     })
-
   }
 )
 
@@ -81,15 +82,24 @@ export const counterSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(LogInUser.pending, (sate, payload) => {
-      sate.pending = "pending"
-    })
-    .addCase(LogInUser.fulfilled, (sate, payload) => {
-      sate.complete = "success"
-    })
-    .addCase(LogInUser.rejected, (sate, payload) => {
-      sate.error = "reject"
-    })
+      .addCase(LogInUser.pending, (sate, actions) => {
+        sate.pending = "pending"
+      })
+      .addCase(LogInUser.fulfilled, (sate, actions) => {
+        sate.complete = "success"
+      })
+      .addCase(LogInUser.rejected, (sate, actions) => {
+        sate.error = "reject"
+      })
+      .addCase(CreateUser.pending, (sate, actions) => {
+        sate.pending = "pending"
+      })
+      .addCase(CreateUser.fulfilled, (sate, actions) => {
+        sate.complete = "success"
+      })
+      .addCase(CreateUser.rejected, (sate, actions) => {
+        sate.error = "reject"
+      })
   }
 })
 

@@ -17,17 +17,14 @@ export default function RootLayout({ children }) {
         {/* <script src="https://kit.fontawesome.com/41a0e61ba0.js" crossorigin="anonymous"></script> */}
       </head>
       <body>
-        {/* <ReduxProvider>
-          
-        </ReduxProvider> */}
-        <ContextAPI>
+        <ReduxProvider>
+          <ContextAPI>
             <TankStackQuery>
-            <ReduxProvider>
               <NavBar></NavBar>
               {children}
-            </ReduxProvider>
             </TankStackQuery>
           </ContextAPI>
+        </ReduxProvider>
 
       </body>
     </html>

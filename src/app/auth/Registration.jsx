@@ -6,11 +6,14 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from './useAuth';
 import { CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux';
+import { CreateUser } from '../components/Redux/ReduxFuntion';
 
 const Registration = () => {
     const [Email, setEmail] = useState("");
     const [modal, setModal] = useState(false);
     const confirmCode = useRef()
+    const dispatch = useDispatch()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
@@ -37,18 +40,31 @@ const Registration = () => {
 
         // console.log(modal);
         if (email && password) {
-            useAuth.signUp(email, password, Attributes, null, (err, result) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(result);
+            // useAuth.signUp(email, password, Attributes, null, (err, result) => {
+            //     if (err) {
+            //         console.log(err);
+            //     }
+            //     else {
+            //         console.log(result);
+            //         setEmail(data?.email)
+            //         setModal(true)
+
+
+            //     }
+            // })
+
+            dispatch(CreateUser({ email, password, Attributes }))
+                .then(res => {
+                    console.log(res);
                     setEmail(data?.email)
                     setModal(true)
+                })
+                .catch(err => {
+                    console.log(err);
+
+                })
 
 
-                }
-            })
         }
 
     };
@@ -74,7 +90,6 @@ const Registration = () => {
     const handleConfirmRegistration = (e) => {
         console.log(Email);
         e.preventDefault()
-        // var cognitoUser = new CognitoUser(userData);
         const code = confirmCode.current.value
         console.log(typeof (code));
         const users = new CognitoUser({

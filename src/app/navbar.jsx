@@ -5,21 +5,14 @@ import "./navbar.css";
 import { useContext, useState } from "react";
 import { ContextSource } from "./ContextAPI/ContextAPI";
 import useAuth from "./auth/useAuth";
-// import { useRouter } from "next/router";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSelector } from "react-redux";
-// import { useRouter } from "next/router";
 
 export default function NavBar() {
     const { user, setloader, setUser } = useContext(ContextSource)
     const navigate = useRouter()
     const routePath = usePathname()
     const [hoveredIndex, setHoveredIndex] = useState(null)
-
-   
-
-
     const routes = [
         {
             name: "Home",
@@ -39,7 +32,6 @@ export default function NavBar() {
         },
 
     ]
-
     const handleLogOut = () => {
         const userDetails = useAuth.getCurrentUser()
         userDetails.signOut()

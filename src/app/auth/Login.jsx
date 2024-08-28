@@ -18,8 +18,6 @@ const Login = () => {
     const { setloader } = useContext(ContextSource)
     const dispatch = useDispatch()
     const { complete } = useSelector((state) => state.auth)
-    console.log(complete);
-
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setSuccess(true)
@@ -57,10 +55,15 @@ const Login = () => {
             if (email, password) {
                 dispatch(setValue())
                 dispatch(LogInUser({ email, password }))
-                if (complete == "success") {
-                    setSuccess(false)
-                    navigate.push("/")
-                }
+                .then(res=>{
+                    console.log(res);
+                    if(res.type == "auth/LoginUser/fulfilled"){
+                        setSuccess(false)
+                        navigate.push('/')
+                    }
+                    
+                })
+            
 
             }
 
