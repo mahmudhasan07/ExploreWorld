@@ -12,7 +12,6 @@ const ContextAPI = ({ children }) => {
     useEffect(() => {
         // console.log(success);
         
-    async function findUser() {
         const userDetails = useAuth?.getCurrentUser()
         userDetails?.getSession((err, res) => {
             if (res) {
@@ -21,7 +20,6 @@ const ContextAPI = ({ children }) => {
 
             }
         })
-       }
 
     }, [loader]);
     // console.log(user);
