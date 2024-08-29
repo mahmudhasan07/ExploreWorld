@@ -57,11 +57,9 @@ const LogInUser = createAsyncThunk(
     return await new Promise((resolve, reject) => {
       User.authenticateUser(getUser, ({
         onSuccess: (res) => {
-          console.log(res);
-          resolve(res)
+          resolve("success")
         },
         onFailure: (err) => {
-          console.log(err);
           reject(err)
         }
       }))

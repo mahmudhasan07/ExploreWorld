@@ -1,5 +1,3 @@
-// "use client"
-import Image from "next/image";
 import Banner from "./components/banner/Banner";
 import Lifestyle from "./components/lifestyle/Lifestyle";
 import Support from "./components/Contact/Support";
@@ -11,7 +9,6 @@ export const metadata = {
 
 
 export default function Home() {
-  
   
   return (
     <>

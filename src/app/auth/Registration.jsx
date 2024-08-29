@@ -18,20 +18,7 @@ const Registration = () => {
     const onSubmit = data => {
         console.log(data)
 
-        const Attributes = [
-            new CognitoUserAttribute({
-                Name: "picture",
-                Value: "https://i.ibb.co/c64L2sJ/432044893-1400818297981947-8508382469092611163-n.jpg"
-            }),
-            new CognitoUserAttribute({
-                Name: "name",
-                Value: data?.name
-            }),
-            new CognitoUserAttribute({
-                Name: "email",
-                Value: data?.email
-            })
-        ]
+
 
         const email = data?.email
         const name = data?.name
@@ -53,16 +40,47 @@ const Registration = () => {
             //     }
             // })
 
-            dispatch(CreateUser({ email, password, Attributes }))
-                .then(res => {
-                    console.log(res);
-                    setEmail(data?.email)
-                    setModal(true)
-                })
-                .catch(err => {
-                    console.log(err);
 
-                })
+            //     })
+            if (data?.image) {
+                const image = data?.image
+                const fromData = new FormData()
+                fromData.append("file", image)
+                fromData.append("upload_preset", 'blog_images')
+                axios.post('https://api.cloudinary.com/v1_1/daudgshta/upload', fromData)
+                    .then(res => {
+                        if (res?.data?.url) {
+                            const imageURL = res?.data?.url
+                            const Attributes = [
+                                new CognitoUserAttribute({
+                                    Name: "picture",
+                                    Value: imageURL
+                                }),
+                                new CognitoUserAttribute({
+                                    Name: "name",
+                                    Value: data?.name
+                                }),
+                                new CognitoUserAttribute({
+                                    Name: "email",
+                                    Value: data?.email
+                                })
+                            ]
+                            dispatch(CreateUser({ email, password, Attributes }))
+                                .then(res => {
+                                    console.log(res);
+                                    setEmail(data?.email)
+                                    setModal(true)
+                                })
+                                .catch(err => {
+                                    console.log(err);
+
+                                })
+                        }
+                    })
+
+            }
+
+
 
 
         }

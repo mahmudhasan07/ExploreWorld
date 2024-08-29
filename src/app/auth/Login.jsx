@@ -56,11 +56,15 @@ const Login = () => {
                 dispatch(setValue())
                 dispatch(LogInUser({ email, password }))
                 .then(res=>{
-                    console.log(res);
-                    if(res.type == "auth/LoginUser/fulfilled"){
+                    if(res?.type == "auth/LoginUser/fulfilled"){
                         setSuccess(false)
                         navigate.push('/')
                     }
+                    if(res?.type == 'auth/LoginUser/rejected'){
+                        setSuccess(false)
+                    }
+                    
+                    
                     
                 })
             

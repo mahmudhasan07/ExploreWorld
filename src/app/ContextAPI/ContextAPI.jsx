@@ -6,8 +6,7 @@ export const ContextSource = createContext()
 const ContextAPI = ({ children }) => {
     const [user, setUser] = useState();
     const [loader, setloader] = useState(true)
-    console.log(user);
-    
+        
     useEffect(() => {
         const userIdentifier = setInterval(() => {
             const userDetails = useAuth?.getCurrentUser()

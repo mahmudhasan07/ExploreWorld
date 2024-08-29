@@ -7,10 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, EffectCreative, Navigation, Pagination } from 'swiper/modules';
 import "./Banner.css";
-import useFetch1 from '@/app/Hooks/useFetch1';
 
 const Banner = () => {
-    console.log("hello");
     return (
         <section className='my-3'>
             <Swiper
