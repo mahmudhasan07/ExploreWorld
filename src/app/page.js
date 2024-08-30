@@ -8,8 +8,7 @@ export const metadata = {
 };
 
 
-export default function Home() {
-  
+export default function Home() {  
   return (
     <>
       <Banner></Banner>

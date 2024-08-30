@@ -44,8 +44,8 @@ const AllBlogs = () => {
                       </AnimatePresence>
                       <div onClick={()=>route.push(`/all-blogs/${item._id}`)} className={hoveredIndex === idx ? "text-white z-50 relative border-2 p-2 rounded-2xl " : "text-black p-2 z-50 relative rounded-2xl border-gray-300 border-2"}>
                         <img src={item?.hostImages[0]} className='h-72 object-cover w-full' alt="" />
-                        <h1 className={'text-2xl '}> <b>Name:</b> {item?.name}</h1>
-                        <h1 className={'text-2xl '}> <b>Location:</b> {item?.location}</h1>
+                        <h1 className={'text-xl '}> <b>Name:</b> {item?.name}</h1>
+                        <h1 className={'text-xl '}> <b>Location:</b> {item?.location}</h1>
 
                         
                       </div>

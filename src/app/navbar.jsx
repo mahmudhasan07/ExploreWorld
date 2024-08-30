@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import "./navbar.css";
+import "./Navbar.css";
 import { useContext, useState } from "react";
 import { ContextSource } from "./ContextAPI/ContextAPI";
 import useAuth from "./auth/useAuth";
@@ -12,6 +12,7 @@ export default function NavBar() {
     const { user, setloader, setUser } = useContext(ContextSource)
     const navigate = useRouter()
     const routePath = usePathname()
+    const [hidden, setHidden] = useState("hidden")
     const [hoveredIndex, setHoveredIndex] = useState(null)
     const routes = [
         {
@@ -27,8 +28,8 @@ export default function NavBar() {
             path: "add-blog"
         },
         {
-            name: "My Blogs",
-            path: "my-blogs"
+            name: "About Us",
+            path: "about-us"
         },
 
     ]
@@ -81,7 +82,6 @@ export default function NavBar() {
                             </AnimatePresence>
                             <div className="relative mx-2 my-1  z-50" key={idx}>
                                 <li className="">{e.name}</li>
-                                {/* <p  id="link_id">hello</p> */}
                             </div>
                         </Link>)
                     }
@@ -90,9 +90,13 @@ export default function NavBar() {
             <div className="my-auto">
                 {
                     user?.email ?
-                        <div className="flex gap-3">
-                            <img src={user?.picture} className="w-12 h-12 rounded-full object-cover object-top" alt="" />
+                        <div className="flex gap-3 relative">
+                            <img onClick={()=> hidden =="hidden"? setHidden("flex") : setHidden("hidden")} src={user?.picture} className="w-12 h-12 rounded-full object-cover object-top cursor-pointer" alt="" />
                             <Link href={'/'}><button onClick={handleLogOut} id="button" className=" mt-1 text-base font-semibold">LogOut</button></Link>
+                            <div  className={`flex flex-col text-center absolute top-14 z-50 -ml-12 bg-[#a047df] text-white p-2 rounded-xl text-lg ${hidden}`}>
+                                <Link onClick={()=> setHidden("hidden")} className="hover:bg-[#ef5fa9] rounded-lg px-1" href={'/my-blogs'}>My Blogs</Link>
+                                <Link onClick={()=> setHidden("hidden")} className="hover:bg-[#ef5fa9] rounded-lg px-1" href={'/my-blogs'}>Favorite Blogs</Link>
+                            </div>
                         </div>
                         :
                         <Link href={'/auth'}><button id="button" className=" text-xl font-semibold">Login</button></Link>

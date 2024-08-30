@@ -62,13 +62,10 @@ const Login = () => {
                     }
                     if(res?.type == 'auth/LoginUser/rejected'){
                         setSuccess(false)
-                    }
-                    
-                    
+                        alert("Invalid Username or Password")
+                    }    
                     
                 })
-            
-
             }
 
 

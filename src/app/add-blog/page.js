@@ -13,9 +13,9 @@ export async function generateMetadata() {
 export default function AddBlog() {
 
     return (
-        <section id="add_blog" className="bg-[#c0b2f3] relative  ">
+        <section id="add_blog" className="relative">
             <div className="my-auto ">
-                <h1 className="text-4xl font-bold text-center my-auto mb-3">Add Your Blog Post</h1>
+                <h1 id="title" className="text-4xl font-bold text-center my-auto mt-3 mb-5">Add Your Blog Post</h1>
                 <Blog ></Blog>
             </div>
         </section>

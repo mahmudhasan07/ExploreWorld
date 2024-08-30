@@ -93,7 +93,7 @@ const Blog = () => {
     // const result = persons.filter(e=> e.name.includes("Hasan"))
     // console.log(result);
     return (
-        <form onSubmit={handleFrom} className="border-2 p-5 space-y-3 bg-white rounded-2xl w-1/3 mx-auto">
+        <form id='from' onSubmit={handleFrom} className="border-2 p-5 space-y-3 bg-gray-200 rounded-2xl w-1/3 mx-auto">
             <div>
                 <label className="text-lg font-semibold">Blog Name</label> <br />
                 <input name='name' className="border-2 w-full border-black p-2 rounded-2xl "></input>

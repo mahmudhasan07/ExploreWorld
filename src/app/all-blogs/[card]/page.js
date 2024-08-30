@@ -24,7 +24,7 @@ export default function Page({params})   {
     
     return (
         <section className="my-5">
-            <h1 id='title' className="text-5xl font-bold text-center mb-10">Blog Details</h1>
+            <h1 id='title' className="text-4xl font-bold text-center mb-10">Blog Details</h1>
             <CardDetails params={params}></CardDetails>
         </section>
     );

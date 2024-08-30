@@ -19,18 +19,14 @@ const CardDetails = ({ params }) => {
     const { user } = useContext(ContextSource)
     const [ratting, setRatting] = useState();
     let likes = data?.likes
-
+    let comments = data?.comments
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
-    // useEffect(() => {
-
-    // }, [axiosLink]);
 
     const likeCounter = setInterval(() => {
         axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
             .then(res => {
                 if (res.data) {
-                    console.log(res?.data);
                     setLike(true)
                     clearInterval(likeCounter)
                 }
@@ -74,10 +70,11 @@ const CardDetails = ({ params }) => {
     const handleComment = () => {
         const text = commentInput.current.value
         const email = user?.email
-        const comment = { text, email, ratting }
-        console.log(comment);
-
-        axiosLink.patch(`/blogs/${data?._id}`, comment)
+        const picture = user?.picture
+        const name = user?.name
+        const comment = { text, email, ratting, name, picture }
+        comments.push(comment)
+        axiosLink.patch(`/blogs/${params?.card}`, {comments})
             .then(res => {
                 console.log(res);
 
@@ -87,7 +84,9 @@ const CardDetails = ({ params }) => {
 
             })
     }
-    console.log(like);
+
+    console.log(comments);
+    
 
     return (
         <section>
@@ -116,8 +115,8 @@ const CardDetails = ({ params }) => {
                                 </Swiper>
                             </div>
                             <div className=' w-1/3 mt-[5%] space-y-2 h-fit'>
-                                <h1 id='card_title' className='text-4xl font-bold '>{data?.name}</h1>
-                                <h1 id='card_title' className='text-2xl font-semibold'>Location : {data?.location}</h1>
+                                <h1 id='card_title' className='text-3xl font-bold '>{data?.name}</h1>
+                                <h1 id='card_title' className='text-xl font-semibold'>Location : {data?.location}</h1>
                                 <h1 className='text-xl font-bold'>Reviews: </h1>
                                 <h1 className='text-xl font-bold flex gap-3'>Likes:
                                     {
@@ -141,7 +140,7 @@ const CardDetails = ({ params }) => {
                                 <div>
                                     <textarea ref={commentInput} name="" className='p-2 border-2 w-full h-32 rounded-2xl border-black ' id=""></textarea>
                                     {
-                                        rate?.map((e, idx) => <button onClick={() => setRatting(e)} className='btn mr-2'>⭐{e}</button>)
+                                        rate?.map((e, idx) => <button onClick={() => setRatting(e)} className='btn mr-2 focus:bg-[#a155d0] focus:text-white'>⭐{e}</button>)
                                     }
                                     <div className='my-2 flex justify-end'>
                                         <button onClick={handleComment} id='button' className='text-white border-2 border-white text-lg font-semibold'>Submit</button>

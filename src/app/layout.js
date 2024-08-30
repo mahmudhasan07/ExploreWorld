@@ -1,8 +1,8 @@
 import "./globals.css";
-import NavBar from "./navbar";
 import TankStackQuery from "./Hooks/TankStackQuery";
 import ContextAPI from "./ContextAPI/ContextAPI";
 import ReduxProvider from "./components/Redux/ReduxProvider";
+import NavBar from "./NavBar";
 
 
 export default function RootLayout({ children }) {
