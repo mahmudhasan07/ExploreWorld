@@ -25,20 +25,6 @@ const CardDetails = ({ params }) => {
     const rate = [1, 2, 3, 4, 5]
     const [avgRate, setAvgRate] = useState(0)
 
-    const likeCounter = setInterval(() => {
-        axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
-            .then(res => {
-                if (res.data) {
-                    setLike(true)
-                    clearInterval(likeCounter)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                clearInterval(likeCounter)
-            })
-    }, 800);
-
     useEffect(() => {
         axiosLink.get(`/ratting/${params?.card}`)
             .then(res => {
@@ -49,6 +35,17 @@ const CardDetails = ({ params }) => {
             .catch(err => {
                 console.log(err);
 
+            })
+            axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
+            .then(res => {
+                if (res.data) {
+                    setLike(true)
+                    // clearInterval(likeCounter)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                // clearInterval(likeCounter)
             })
     }, []);
 
@@ -89,9 +86,13 @@ const CardDetails = ({ params }) => {
         const name = user?.name
         const comment = { text, email, ratting, name, picture }
         comments.push(comment)
-        axiosLink.patch(`/blogs/${params?.card}`, { comments })
+        axiosLink.patch(`/blogs/${params.card}`, { comments })
             .then(res => {
                 console.log(res);
+                if (res.data) {
+                    refetch()    
+                }
+                
 
             })
             .catch(err => {
@@ -152,7 +153,7 @@ const CardDetails = ({ params }) => {
                                 <div>
                                     <textarea ref={commentInput} name="" className='p-2 border-2 w-full h-32 rounded-2xl border-black ' id=""></textarea>
                                     {
-                                        rate?.map((e, idx) => <button onClick={() => setRatting(e)} className='btn mr-2 focus:bg-[#a155d0] focus:text-white'>⭐{e}</button>)
+                                        rate?.map((e, idx) => <button key={idx} onClick={() => setRatting(e)} className='btn mr-2 focus:bg-[#a155d0] focus:text-white'>⭐{e}</button>)
                                     }
                                     <div className='my-2 flex justify-end'>
                                         <button onClick={handleComment} id='button' className='text-white border-2 border-white text-lg font-semibold'>Submit</button>
@@ -161,20 +162,24 @@ const CardDetails = ({ params }) => {
                                         <h1 className='text-2xl font-semibold'>Other Comments</h1>
                                         <div>
                                             {
-                                                data?.comments?.map((e, idx) => <div>
-                                                    <div className='flex justify-between'>
-                                                        <div className='flex gap-2'>
-                                                            <img className='w-12 h-12 rounded-full object-cover object-top' src={e.picture} alt="" />
-                                                            <h1 className='my-auto text-lg font-semibold'>{e.name}</h1>
+                                                data?.comments?.length > 0 ?
+                                                data?.comments?.map((e, idx) =>
+                                                    <div key={idx}>
+                                                        <div className='flex justify-between'>
+                                                            <div className='flex gap-2'>
+                                                                <img className='w-12 h-12 rounded-full object-cover object-top' src={e.picture} alt="" />
+                                                                <h1 className='my-auto text-lg font-semibold'>{e.name}</h1>
+                                                            </div>
+                                                            <div className='my-auto'>
+                                                                <Rating readOnly value={e?.ratting} ></Rating>
+                                                            </div>
                                                         </div>
-                                                        <div className='my-auto'>
-                                                            <Rating readOnly value={e.ratting} ></Rating>
+                                                        <div>
+                                                            <h1>{e?.text}</h1>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <h1>{e.text}</h1>
-                                                    </div>
-                                                </div>)
+                                                    </div>)
+                                                    :
+                                                    <h1>No Comments</h1>
                                             }
                                         </div>
                                     </div>
