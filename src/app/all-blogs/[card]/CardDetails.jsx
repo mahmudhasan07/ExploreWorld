@@ -11,6 +11,7 @@ import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 import { ContextSource } from '@/app/ContextAPI/ContextAPI';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Rating } from '@mui/material';
 
 const CardDetails = ({ params }) => {
     const [like, setLike] = useState(false);
@@ -22,6 +23,7 @@ const CardDetails = ({ params }) => {
     let comments = data?.comments
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
+    const [avgRate, setAvgRate] = useState(0)
 
     const likeCounter = setInterval(() => {
         axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
@@ -36,6 +38,19 @@ const CardDetails = ({ params }) => {
                 clearInterval(likeCounter)
             })
     }, 800);
+
+    useEffect(() => {
+        axiosLink.get(`/ratting/${params?.card}`)
+            .then(res => {
+                console.log(res.data);
+                setAvgRate(res?.data?.averageRatting)
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+    }, []);
 
     const handleLike = () => {
         likes.push(user?.email)
@@ -74,7 +89,7 @@ const CardDetails = ({ params }) => {
         const name = user?.name
         const comment = { text, email, ratting, name, picture }
         comments.push(comment)
-        axiosLink.patch(`/blogs/${params?.card}`, {comments})
+        axiosLink.patch(`/blogs/${params?.card}`, { comments })
             .then(res => {
                 console.log(res);
 
@@ -84,9 +99,6 @@ const CardDetails = ({ params }) => {
 
             })
     }
-
-    console.log(comments);
-    
 
     return (
         <section>
@@ -117,7 +129,7 @@ const CardDetails = ({ params }) => {
                             <div className=' w-1/3 mt-[5%] space-y-2 h-fit'>
                                 <h1 id='card_title' className='text-3xl font-bold '>{data?.name}</h1>
                                 <h1 id='card_title' className='text-xl font-semibold'>Location : {data?.location}</h1>
-                                <h1 className='text-xl font-bold'>Reviews: </h1>
+                                <h1 className='text-xl font-bold'>Reviews: <Rating readOnly value={avgRate}></Rating> </h1>
                                 <h1 className='text-xl font-bold flex gap-3'>Likes:
                                     {
 
@@ -148,7 +160,22 @@ const CardDetails = ({ params }) => {
                                     <div>
                                         <h1 className='text-2xl font-semibold'>Other Comments</h1>
                                         <div>
-
+                                            {
+                                                data?.comments?.map((e, idx) => <div>
+                                                    <div className='flex justify-between'>
+                                                        <div className='flex gap-2'>
+                                                            <img className='w-12 h-12 rounded-full object-cover object-top' src={e.picture} alt="" />
+                                                            <h1 className='my-auto text-lg font-semibold'>{e.name}</h1>
+                                                        </div>
+                                                        <div className='my-auto'>
+                                                            <Rating readOnly value={e.ratting} ></Rating>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h1>{e.text}</h1>
+                                                    </div>
+                                                </div>)
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,9 @@ const MyBlog = () => {
                 data == "l" ?
                     "loading"
                     :
+                    data?.length < 1 ?
+                    <h1 className='text-center text-xl font-semibold'>No Blogs are posted by you</h1>
+                    :
                     data.map((e, idx) => <MyCard key={idx} card={e}></MyCard>)
             }
             </div>
