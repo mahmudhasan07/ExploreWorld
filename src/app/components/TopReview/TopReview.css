@@ -1,0 +1,13 @@
+#card2 {
+    border-right: 3px #e92f8f dashed;
+    border-bottom: 3px #e92f8f dashed;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+#card1 {
+    border-top: 3px #6508c3 solid;
+    border-left: 3px #6508c3 solid;
+    border-radius: 25px;
+    padding: 10px;
+}

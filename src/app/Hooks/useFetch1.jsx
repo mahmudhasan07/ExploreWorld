@@ -1,6 +1,5 @@
-// "use client"
+"use client"
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import useAxios, { AxiosSource } from './useAxios';
 
 const useFetch1 = (data1,data2) => {
