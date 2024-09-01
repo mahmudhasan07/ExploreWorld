@@ -11,7 +11,6 @@ export default function Home() {
       <Banner></Banner>
       <Lifestyle></Lifestyle>
       <TopReview></TopReview>
-      {/* <Support></Support> */}
       
     </>
   );
