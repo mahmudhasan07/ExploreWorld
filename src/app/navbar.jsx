@@ -48,18 +48,6 @@ export default function NavBar() {
             <div className=" my-auto">
                 <ul className={`flex text-xl`}>
                     {/* framer motion animation a gap dele card section kaj kore na */}
-                    {/* <Link className={path == "/" ? "underline" : "" } href={'/'}>
-                        <li >Home</li>
-                    </Link>
-                    <Link className={({ isActive, isPending })=> isPending? "" : isActive? "underline" : ""} href={'/all-blogs'}>
-                        <li>All Blogs</li>
-                    </Link>
-                    <Link className={({ isActive, isPending })=> isPending? "" : isActive? "underline" : ""} href={'/add-blog'}>
-                        <li>Add Blog</li>
-                    </Link>
-                    <Link className={({ isActive, isPending })=> isPending? "" : isActive? "underline" : ""} href={'/my-blogs'}>
-                        <li>My Blog</li>
-                    </Link>  */}
                     {
                         routes.map((e, idx) => <Link key={idx} href={`/${e.path}`} onMouseEnter={() => setHoveredIndex(idx)} onMouseLeave={() => setHoveredIndex(null)} className={routePath == `/${e.path}` ? `underline relative ` : `relative`}>
 
