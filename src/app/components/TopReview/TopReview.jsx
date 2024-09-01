@@ -5,8 +5,6 @@ import "./TopReview.css"
 
 const TopReview = () => {
     const [data] = useFetch1("topRatting")
-    console.log(data);
-    
     return (
         <section className='my-10'>
             <h1 id='title' className="text-5xl text-center font-bold mb-10">Top Reviews places</h1>

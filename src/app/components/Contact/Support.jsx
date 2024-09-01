@@ -13,7 +13,7 @@ const Support = () => {
 
             <div className='flex justify-around my-5'>
                 <div className='w-2/5'>
-                    <Lottie animationData={support}></Lottie>
+                    <Lottie animationData={support} loop={true}></Lottie>
                 </div>
                 <div className='p-2'>
                     <form action="" className='space-y-5'>
