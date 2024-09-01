@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { } from "./register.css";
-import { FcGoogle } from 'react-icons/fc';
 import useAuth from './useAuth';
 import { CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import Swal from 'sweetalert2'
@@ -16,32 +15,11 @@ const Registration = () => {
     const dispatch = useDispatch()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data)
-
-
-
         const email = data?.email
         const name = data?.name
         const password = data?.password
 
-
-        // console.log(modal);
         if (email && password) {
-            // useAuth.signUp(email, password, Attributes, null, (err, result) => {
-            //     if (err) {
-            //         console.log(err);
-            //     }
-            //     else {
-            //         console.log(result);
-            //         setEmail(data?.email)
-            //         setModal(true)
-
-
-            //     }
-            // })
-
-
-            //     })
             if (data?.image) {
                 const image = data?.image
                 const fromData = new FormData()
@@ -80,9 +58,6 @@ const Registration = () => {
 
             }
 
-
-
-
         }
 
     };
@@ -102,8 +77,6 @@ const Registration = () => {
             console.log(res);
         })
     }
-    // console.log(user);
-    // console.log(userAtttributes);
 
     const handleConfirmRegistration = (e) => {
         console.log(Email);
