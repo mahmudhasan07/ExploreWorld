@@ -1,14 +1,12 @@
 'use client'
-import Image from "next/image";
-import Link from "next/link";
-import "./Navbar.css";
-import { useContext, useState } from "react";
-import { ContextSource } from "./ContextAPI/ContextAPI";
-import useAuth from "./auth/useAuth";
-import { usePathname, useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useContext, useState } from 'react';
+import "./NavBar.css"
+import { ContextSource } from '@/app/ContextAPI/ContextAPI';
+import { usePathname, useRouter } from 'next/navigation';
+import useAuth from '@/app/auth/useAuth';
+import Link from 'next/link';
 
-export default function NavBar() {
+const NavBar = () => {
     const { user, setloader, setUser } = useContext(ContextSource)
     const navigate = useRouter()
     const routePath = usePathname()
@@ -92,4 +90,6 @@ export default function NavBar() {
             </div>
         </section>
     );
-}
+};
+
+export default NavBar;
