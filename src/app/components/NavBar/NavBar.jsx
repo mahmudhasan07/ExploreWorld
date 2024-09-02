@@ -5,6 +5,7 @@ import { ContextSource } from '@/app/ContextAPI/ContextAPI';
 import { usePathname, useRouter } from 'next/navigation';
 import useAuth from '@/app/auth/useAuth';
 import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const NavBar = () => {
     const { user, setloader, setUser } = useContext(ContextSource)
@@ -39,9 +40,9 @@ const NavBar = () => {
         navigate.push('/')
     }
     return (
-        <section className="poetsen-one-regular text-white flex justify-around border-b-2 border-black bg-[#65248e]">
+        <section className="poetsen-one-regular text-white flex justify-around border-b-2 border-black p-2 bg-[#65248e]">
             <div>
-                <Link href={'/'}><Image src={'https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png'} width={200} height={10} className=" my-2 "></Image></Link>
+                <Link href={'/'}><img src='https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png' className='w-fit h-16 object-cover'></img></Link>
             </div>
             <div className=" my-auto">
                 <ul className={`flex text-xl`}>
