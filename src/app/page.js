@@ -3,7 +3,10 @@ import Lifestyle from "./components/lifestyle/Lifestyle";
 import Support from "./components/Contact/Support";
 import TopReview from "./components/TopReview/TopReview";
 
-
+export const metadata ={
+  title: "ExploreSphere Travel",
+  description: "Explore the world with ExploreSphere Travel"
+}
 
 export default function Home() {  
   return (
