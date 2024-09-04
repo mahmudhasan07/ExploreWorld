@@ -135,7 +135,7 @@ const Registration = () => {
                     {/* errors will return when field validation fails  */}
                     {errors.exampleRequired && <span>This field is required</span>}
                     <div className='flex justify-end mr-5'>
-                        <button onClick={handleRegister} className=' font-bold'>New User ??</button>
+                        <button onClick={handleRegister} className=' font-bold'>Already User ??</button>
                     </div>
                     <div className='text-center'>
                         <input className='btn' type="submit" />
