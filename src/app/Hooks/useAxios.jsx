@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 
 export const AxiosSource = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://explore-world-server-umber.vercel.app',
     withCredentials: true
 
 });

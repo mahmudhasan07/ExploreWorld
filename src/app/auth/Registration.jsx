@@ -7,6 +7,7 @@ import { CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux';
 import { CreateUser } from '../components/Redux/ReduxFuntion';
+import axios from 'axios'
 
 const Registration = () => {
     const [Email, setEmail] = useState("");
@@ -22,11 +23,13 @@ const Registration = () => {
         if (email && password) {
             if (data?.image) {
                 const image = data?.image
+                console.log(image);
+                
                 const fromData = new FormData()
-                fromData.append("file", image)
+                fromData.append("file", image[0])
                 fromData.append("upload_preset", 'blog_images')
                 axios.post('https://api.cloudinary.com/v1_1/daudgshta/upload', fromData)
-                    .then(res => {
+                    .then(res => {  
                         if (res?.data?.url) {
                             const imageURL = res?.data?.url
                             const Attributes = [
