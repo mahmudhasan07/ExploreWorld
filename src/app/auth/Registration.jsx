@@ -50,7 +50,7 @@ const Registration = () => {
                                 .then(res => {
                                     console.log(res);
                                     setEmail(data?.email)
-                                    setModal(true)
+                                    setModal(true)                       
                                 })
                                 .catch(err => {
                                     console.log(err);
