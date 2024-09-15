@@ -37,7 +37,7 @@ const ContextAPI = ({ children }) => {
 
     
 
-    // console.log(user);
+    console.log(user);
     const data = { user, loader, setloader, setUser }
     return <ContextSource.Provider value={data}>
         {children} </ContextSource.Provider>
