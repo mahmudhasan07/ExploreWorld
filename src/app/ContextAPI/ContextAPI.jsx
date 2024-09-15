@@ -16,7 +16,7 @@ const ContextAPI = ({ children }) => {
                 if (res) {
                     setUser(res?.idToken?.payload)
                     setloader(false)
-                    axiosLink.post('/login', {email : res?.idToken?.payload.email})
+                    axiosLink.post('/jwt', {email : res?.idToken?.payload.email})
                     .then(res=>{
                         console.log(res);
                         
