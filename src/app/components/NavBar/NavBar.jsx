@@ -39,6 +39,9 @@ const NavBar = () => {
         setUser('')
         navigate.push('/')
     }
+
+    console.log(user);
+    
     return (
         <section className="poetsen-one-regular text-white flex justify-around border-b-2 border-black p-2 bg-[#65248e]">
             <div>

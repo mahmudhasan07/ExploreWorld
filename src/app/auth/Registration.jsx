@@ -8,12 +8,16 @@ import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux';
 import { CreateUser } from '../components/Redux/ReduxFuntion';
 import axios from 'axios'
+import useAxios, { AxiosSource } from '../Hooks/useAxios';
 
 const Registration = () => {
     const [Email, setEmail] = useState("");
+    const [Image, setImage] = useState("");
+    const [Name, setName] = useState("");
     const [modal, setModal] = useState(false);
     const confirmCode = useRef()
     const dispatch = useDispatch()
+    const axiosLink = useAxios(AxiosSource)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         const email = data?.email
@@ -24,12 +28,12 @@ const Registration = () => {
             if (data?.image) {
                 const image = data?.image
                 console.log(image);
-                
+
                 const fromData = new FormData()
                 fromData.append("file", image[0])
                 fromData.append("upload_preset", 'blog_images')
                 axios.post('https://api.cloudinary.com/v1_1/daudgshta/upload', fromData)
-                    .then(res => {  
+                    .then(res => {
                         if (res?.data?.url) {
                             const imageURL = res?.data?.url
                             const Attributes = [
@@ -48,9 +52,11 @@ const Registration = () => {
                             ]
                             dispatch(CreateUser({ email, password, Attributes }))
                                 .then(res => {
-                                    console.log(res);
+                                    // console.log(res);
                                     setEmail(data?.email)
-                                    setModal(true)                       
+                                    setModal(true)
+                                    setImage(imageURL)
+                                    setName(data?.name)
                                 })
                                 .catch(err => {
                                     console.log(err);
@@ -70,17 +76,6 @@ const Registration = () => {
         document.getElementById("registration-from").style.transform = "rotateY(180deg)"
     }
 
-
-    const user = useAuth.getCurrentUser()
-    if (user) {
-        user.getSession((err, res) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log(res);
-        })
-    }
-
     const handleConfirmRegistration = (e) => {
         console.log(Email);
         e.preventDefault()
@@ -95,12 +90,23 @@ const Registration = () => {
                 console.log(err);
             }
             if (res) {
-                Swal.fire({
-                    title: "Registration Complete",
-                    text: "You successfully registration your account",
-                    icon: "success"
-                });
-                setModal(false)
+                const data =  { Name, Email, Image }
+                axiosLink.post("/users", data)
+                    .then(res => {
+                        // console.log(res.data);
+                        setModal(false)
+                        Swal.fire({
+                            title: "Registration Complete",
+                            text: "You successfully registration your account",
+                            icon: "success"
+                        });
+                        
+                    })
+                    .catch(err => {
+                        console.log(err);
+
+                    })
+
             }
         })
     }

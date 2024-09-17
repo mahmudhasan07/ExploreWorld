@@ -13,25 +13,30 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Rating } from '@mui/material';
 import Comment from './Comment';
+import Likes from './Likes';
 
 const CardDetails = ({ params }) => {
     const [like, setLike] = useState(false);
     const [data, refetch] = useFetch2("blogs", params?.card)
     const axiosLink = useAxios(AxiosSource)
     const { user } = useContext(ContextSource)
+    const [modal, setModal] = useState(false)
     let likes = data?.likes
 
     useEffect(() => {
-            axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
-            .then(res => {
-                if (res.data) {
-                    setLike(true)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [axiosLink]);
+        const getLike = async () => {
+            await axiosLink.get(`/likes/${params?.card}?user=${user?.email}`)
+                .then(res => {
+                    if (res?.data) {
+                        setLike(true)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        getLike()
+    }, []);
 
     const handleLike = () => {
         likes.push(user?.email)
@@ -58,7 +63,7 @@ const CardDetails = ({ params }) => {
                 console.log(err);
             })
     }
- 
+
     return (
         <section>
             {
@@ -97,9 +102,11 @@ const CardDetails = ({ params }) => {
                                             :
 
                                             <button onClick={handleDislike}> <FavoriteIcon fontSize='large' className=' text-red-500 -mt-1'></FavoriteIcon></button>}
-                                    {data?.likes.length}</h1>
-
+                                    <button onClick={() => setModal(true)} className='text-2xl -mt-1'>{data?.likes.length}</button></h1>
                             </div>
+                            <dialog open={modal} className='rounded-xl shadow-2xl shadow-[#f36bb2] fixed top-1/3 p-5 z-50'>
+                                <Likes like={data?.likes} setModal={setModal}></Likes>
+                            </dialog>
                         </div>
                         <div className='flex justify-around p-2'>
                             <div className='w-1/2'>

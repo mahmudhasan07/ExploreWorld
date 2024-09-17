@@ -4,7 +4,7 @@ import CardDetails from "./CardDetails";
 import '../../components/lifestyle/Lifestyle.scss'
 
 
-export const generateMetadata = async({params})=> {
+export const generateMetadata = async ({params}) => {
     const axiosLink = useAxios(AxiosSource)
     const cards = await axiosLink.get(`/blogs/${params.card}`)
     return{

@@ -2,11 +2,13 @@ import { ContextSource } from '@/app/ContextAPI/ContextAPI';
 import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 import useFetch2 from '@/app/Hooks/useFetch2';
 import { Rating } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import React, { useContext, useRef, useState } from 'react';
 
 const Comment = ({ params, refetch1 }) => {
     const [data, refetch] = useFetch2("blogs", params?.card)
     const { user } = useContext(ContextSource)
+    const route = useRouter()
     let comments = data?.comments
     const commentInput = useRef()
     const rate = [1, 2, 3, 4, 5]
@@ -22,7 +24,7 @@ const Comment = ({ params, refetch1 }) => {
         axiosLink.patch(`/blogs/${params.card}`, { comments })
             .then(res => {
                 console.log(res);
-                if (res.data) {
+                if (res.data) { 
                     refetch()
                     refetch1()
                     commentInput.current.value.reset()
@@ -34,6 +36,16 @@ const Comment = ({ params, refetch1 }) => {
                 console.log(err);
 
             })
+    }
+
+    const handleNavigate = (email) => {
+        console.log(email);
+
+        const userEmail = email.split("@")
+        if (userEmail) {
+            route.push(`/${userEmail[0]}`)
+        }
+
     }
 
     return (
@@ -57,7 +69,7 @@ const Comment = ({ params, refetch1 }) => {
                                         <div className='flex justify-between'>
                                             <div className='flex gap-2'>
                                                 <img className='w-12 h-12 rounded-full object-cover object-top' src={e.picture} alt="" />
-                                                <h1 className='my-auto text-lg font-semibold'>{e.name}</h1>
+                                                <h1 onClick={()=>handleNavigate(e.email)} className='my-auto cursor-pointer text-lg font-semibold'>{e.name}</h1>
                                             </div>
                                             <div className='my-auto'>
                                                 <Rating readOnly value={e?.ratting} ></Rating>

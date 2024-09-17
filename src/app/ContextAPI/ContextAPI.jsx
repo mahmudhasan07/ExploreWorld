@@ -20,15 +20,11 @@ const ContextAPI = ({ children }) => {
 
                     axiosLink.post('/jwt', { email: res?.idToken?.payload?.email })
                         .then(res => {
-                            console.log(res);
-
+                            return(res.data)
                         })
                         .catch(err => {
                             console.log(err);
-
                         })
-
-
                     clearInterval(userIdentifier)
 
                 }
@@ -38,8 +34,6 @@ const ContextAPI = ({ children }) => {
     }, [loader]);
 
 
-
-    // console.log(user);
     const data = { user, loader, setloader, setUser }
     return <ContextSource.Provider value={data}>
         {children} </ContextSource.Provider>

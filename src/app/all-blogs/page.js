@@ -2,7 +2,7 @@ import AllBlogs from "./AllBlogs";
 
 
 export const metadata = {
-    title : "Add Your Blog"
+    title : "Add Your Blog",
 }
 
 export default function Page() {
