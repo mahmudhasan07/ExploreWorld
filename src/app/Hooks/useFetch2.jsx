@@ -7,7 +7,7 @@ const useFetch2 = (data1,data2,data3) => {
     const {isLoading, isError, data, error, refetch}  = useQuery({
         queryKey : [data1,data2,data3],
         queryFn: async () =>{
-            const res = await axiosLink.get(`/${data1}/${data2}`)
+            const res = await axiosLink.get(`/${data1}/${data2}?data=${data3}`)
             return res.data
         }
     })

@@ -14,9 +14,9 @@ export default function AddBlog() {
 
     return (
         <section id="add_blog" className="relative">
-            <div className="my-auto ">
+            <div className="my-auto top-10 relative">
                 <h1 id="title" className="text-4xl font-bold text-center my-auto mt-3 mb-5">Add Your Blog Post</h1>
-                <Blog ></Blog>
+                <Blog></Blog>
             </div>
         </section>
     );

@@ -30,7 +30,7 @@ const Likes = ({ like, setModal }) => {
 
         const userEmail = email.split("@")
         if (userEmail) {
-            route.push(`/${userEmail[0]}`)
+            route.push(`/profile/${userEmail[0]}`)
         }
 
     }

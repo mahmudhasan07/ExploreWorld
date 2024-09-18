@@ -1,5 +1,6 @@
+import useAxios, { AxiosSource } from "@/app/Hooks/useAxios";
 import Profile from "./Profile";
-import useAxios, { AxiosSource } from "../Hooks/useAxios";
+// import useAxios, { AxiosSource } from "../Hooks/useAxios";
 
 export const generateMetadata = async ({ params }) => {
     const axiosLink = useAxios(AxiosSource)

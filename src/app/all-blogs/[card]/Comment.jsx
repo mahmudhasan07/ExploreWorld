@@ -43,7 +43,7 @@ const Comment = ({ params, refetch1 }) => {
 
         const userEmail = email.split("@")
         if (userEmail) {
-            route.push(`/${userEmail[0]}`)
+            route.push(`/profile/${userEmail[0]}`)
         }
 
     }
