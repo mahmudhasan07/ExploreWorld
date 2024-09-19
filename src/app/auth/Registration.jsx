@@ -115,7 +115,7 @@ const Registration = () => {
 
     return (
         <section>
-            <div id='registration-from' className='border-2 rounded-2xl backdrop-blur-md backdrop-brightness-90 w-1/3 p-2 h-[510px]  my-auto absolute left-1/3 top-14'>
+            <div id='registration-from' className='border-2 rounded-2xl backdrop-blur-md backdrop-brightness-90 w-1/3 p-5 h-[510px]  my-auto absolute left-1/3 top-[15%]'>
 
                 <h1 className='text-3xl font-bold text-center my-5'>Please Registration for account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className='space-y-2 '>
@@ -141,7 +141,7 @@ const Registration = () => {
                     {/* errors will return when field validation fails  */}
                     {errors.exampleRequired && <span>This field is required</span>}
                     <div className='flex justify-end mr-5'>
-                        <button onClick={handleRegister} className=' font-bold'>Already User ??</button>
+                        <button onClick={handleRegister} className='my-2 font-bold'>Already User ??</button>
                     </div>
                     <div className='text-center'>
                         <input className='btn' type="submit" />

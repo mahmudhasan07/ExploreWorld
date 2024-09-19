@@ -95,12 +95,12 @@ const Login = () => {
             {
                 success == true ?
                     <div id='loader_id' className='absolute w-full h-screen top-0 z-50 backdrop-blur-md '>
-                        <Lottie animationData={loader} className='w-full h-full mx-auto '></Lottie>
+                        <Lottie animationData={loader} className=' w-[500px] top-1/4 relative mx-auto '></Lottie>
                     </div>
                     :
                     ""
             }
-            <div id='login-from' className='border-2 rounded-2xl backdrop-blur-sm backdrop-brightness-90 w-1/3 h-[510px] p-2 my-auto absolute left-1/3 top-14'>
+            <div id='login-from' className='border-2 rounded-2xl backdrop-blur-sm backdrop-brightness-90 w-1/3 h-[510px] p-5 my-auto absolute left-1/3 top-[15%]'>
 
                 <h1 className='text-3xl font-bold text-center my-5'>Please Login in your account</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className='space-y-2 '>
