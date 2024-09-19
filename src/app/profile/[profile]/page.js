@@ -8,10 +8,12 @@ export const generateMetadata = async ({ params }) => {
     return {
         title: data?.Name,
         openGraph: {
-            images: data?.Image
+            images: data?.Image,
+            size : '180x180'
         },
         icons: {
-            icon: data?.Image
+            icon: data?.Image,
+             size : '180x180'
         }
     }
 
