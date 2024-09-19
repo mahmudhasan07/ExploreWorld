@@ -9,11 +9,11 @@ export const generateMetadata = async ({ params }) => {
         title: data?.Name,
         openGraph: {
             images: data?.Image,
-            size : '180x180'
+            size : '500 x 500'
         },
         icons: {
             icon: data?.Image,
-             size : '180x180'
+             size : '500 * 500'
         }
     }
 
