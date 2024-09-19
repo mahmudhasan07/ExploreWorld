@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Banner></Banner>
       <Lifestyle></Lifestyle>
-      {/* <TopReview></TopReview> */}
+      <TopReview></TopReview>
       <Support></Support>
     </>
   );
