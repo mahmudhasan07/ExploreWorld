@@ -24,7 +24,7 @@ const AllBlogs = () => {
   return (
     <section >
       <div className='text-center my-5'>
-        <input ref={inputRef} onChange={handleSearch} type="text" className='border-2 border-black p-2 rounded-xl w-80' />
+        <input ref={inputRef} onChange={handleSearch} type="text" placeholder='Enter any place name' className='border-2 border-black p-2 rounded-xl w-80' />
         <button id='button' className='text-white font-semibold ml-1 text-lg'>Search</button>
       </div>
       <div className='grid lg:grid-cols-4 mx-2'>
@@ -64,6 +64,15 @@ const AllBlogs = () => {
                 </div>
               </div>
             ))
+        }
+      </div>
+      <div>
+        {
+            data?.length == 0 ?
+              <h1 className='text-2xl font-semibold text-center'>No blogs found</h1>
+              :
+              ""
+
         }
       </div>
     </section>

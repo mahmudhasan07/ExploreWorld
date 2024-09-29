@@ -19,7 +19,6 @@ export const generateMetadata = async ({ params }) => {
         },
         icons: {
             icon: data?.Image,
-            size: '500 * 500'
         }
     }
 

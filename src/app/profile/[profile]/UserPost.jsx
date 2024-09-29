@@ -1,6 +1,7 @@
 'use client'
 import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 import useFetch1 from '@/app/Hooks/useFetch1';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -25,7 +26,6 @@ const UserPost = ({ email, name, image }) => {
 
     const fetchMoreData = () => {
         if (limit == length) {
-            console.log(limit);
             setmore(false)
             return
         }
@@ -34,12 +34,9 @@ const UserPost = ({ email, name, image }) => {
             setmore(true)
             return
         }
-
-
-
-
     }
-    console.log(limit);
+
+
     return (
         <section className=''>
             {
@@ -63,7 +60,12 @@ const UserPost = ({ email, name, image }) => {
                                 <div key={index} className='space-y-1'>
                                     <div className='flex gap-2'>
                                         <img src={image} className='w-14 h-14 rounded-full object-cover object-top' alt="" />
-                                        <h1 className='text-xl my-auto font-bold'>{name}</h1>
+                                        <div>
+                                            <h1 className='text-xl my-auto font-bold'>{name}</h1>
+                                            <h1>{
+                                                moment(item?.date).fromNow()}
+                                            </h1>
+                                        </div>
                                     </div>
                                     <h1 className='text-lg font-semibold'>Place : {item?.name}</h1>
                                     <h1 className='text-lg font-semibold'>location : {item?.location}</h1>
