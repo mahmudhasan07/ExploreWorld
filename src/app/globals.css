@@ -6,3 +6,16 @@
     font-family: "Poetsen One", sans-serif;
     color: #6508c3;
 }
+
+#button{
+    border: 1px solid;
+    padding: 7px 12px;
+    border-radius: 15px;
+    background: linear-gradient(to right, #e92f8f, #6508c3 );
+    transition: all .5s;
+    color: white;
+
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
