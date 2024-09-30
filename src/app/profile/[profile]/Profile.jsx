@@ -3,10 +3,28 @@ import React, { useContext } from 'react';
 import UserPost from './UserPost';
 import useFetch1 from '@/app/Hooks/useFetch1';
 import { ContextSource } from '@/app/ContextAPI/ContextAPI';
+import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 
 const Profile = ({ id }) => {
     const [data, refetch] = useFetch1('users', id?.profile)
     const { user } = useContext(ContextSource)
+    const axiosLink = useAxios(AxiosSource)
+
+
+    const handleFollowing = (id) => {
+        // console.log(email);
+
+        axiosLink.patch(`/user/${user?.email}`, {id})
+            .then(res => {
+                console.log(res);
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+    }
+
 
     return (
         <section>
@@ -28,7 +46,7 @@ const Profile = ({ id }) => {
                                         user?.email?.includes(id.profile) ?
                                             ""
                                             :
-                                            <button id='button' className='font-bold p-1'>Follow</button>
+                                            <button onClick={() => handleFollowing(data?._id)} id='button' className='font-bold p-1'>Follow</button>
                                     }
                                 </div>
                                 <div className='gap-5 flex justify-center my-2 font-semibold'>
