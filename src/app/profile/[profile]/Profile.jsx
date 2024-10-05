@@ -26,26 +26,37 @@ const Profile = ({ id }) => {
 
     const handleFollowing = (idx) => {
 
-        axiosLink.patch(`/following/${userID}`, { idx })
-            .then(res => {
-                // console.log(res);
-                refetch()
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        if (user?.email) {
+            axiosLink.patch(`/following/${userID}`, { idx })
+                .then(res => {
+                    // console.log(res);
+                    refetch()
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            alert('Please login to follow')
+        }
     }
 
     const handleUnfollow = (idx) => {
-        axiosLink.patch(`/unfollow/${userID}`, { idx })
-            .then(res => {
-                console.log(res);
-                refetch()
-            })
+        if (user?.email) {
+            axiosLink.patch(`/unfollow/${userID}`, { idx })
+                .then(res => {
+                    console.log(res);
+                    refetch()
+                })
 
-            .catch(err => {
-                console.log(err);
-            })
+                .catch(err => {
+                    console.log(err);
+                })
+
+        }
+        else {
+            alert('Please login to unfollow')
+        }
     }
 
     return (

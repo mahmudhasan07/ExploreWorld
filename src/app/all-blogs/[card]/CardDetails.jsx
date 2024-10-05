@@ -40,28 +40,38 @@ const CardDetails = ({ params }) => {
 
     const handleLike = () => {
         likes.push(user?.email)
-        axiosLink.patch(`/blogs/${params.card}`, { likes })
-            .then(res => {
-                refetch()
-                setLike(true)
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        if (user?.email) {
+            axiosLink.patch(`/blogs/${params.card}`, { likes })
+                .then(res => {
+                    refetch()
+                    setLike(true)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            alert('Please login to like')
+        }
     }
 
     const handleDislike = () => {
         likes = data?.likes.filter(e => e != user?.email)
-        setLike(false)
-        axiosLink.patch(`/blogs/${params.card}`, { likes })
-            .then(res => {
-                setLike(false)
-                refetch()
+        if (user?.email) {
+            setLike(false)
+            axiosLink.patch(`/blogs/${params.card}`, { likes })
+                .then(res => {
+                    setLike(false)
+                    refetch()
 
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            alert('Please login to dislike')
+        }
     }
 
     return (
