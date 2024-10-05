@@ -8,12 +8,14 @@ export const generateMetadata = async ({ params }) => {
     const axiosLink = useAxios(AxiosSource)
     const cards = await axiosLink.get(`/blogs/${params.card}`)
     return {
-        title: cards.data.name,
+        title: cards?.data?.name,
         openGraph: {
-            images: [{ url: cards.data.hostImages[0] }]
+            images: [{ 
+                url: cards?.data?.hostImages[0] 
+            },]
         },
         icons: {
-            icon: cards.data.hostImages[0]
+            icon: cards?.data?.hostImages[0]
         }
 
 
