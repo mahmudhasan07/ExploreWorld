@@ -2,7 +2,10 @@ import AllBlogs from "./AllBlogs";
 
 
 export const metadata = {
-    title : "Add Your Blog",
+    title: "Add Your Blog",
+    icons: {
+        icon: "https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png"
+    }
 }
 
 export default function Page() {
