@@ -45,7 +45,6 @@ const Profile = ({ id }) => {
         if (user?.email) {
             axiosLink.patch(`/unfollow/${userID}`, { idx })
                 .then(res => {
-                    console.log(res);
                     refetch()
                 })
 

@@ -6,18 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { IoMdClose, IoMdCloseCircle } from "react-icons/io";
 
 const Likes = ({ like, setModal }) => {
-    // console.log(like);
     const [Likers, setLikers] = useState([]);
     const route = useRouter()
-    console.log(like);
 
     const axiosLink = useAxios(AxiosSource)
     useEffect(() => {
         axiosLink.get(`/alllikes?data=${like}`)
             .then(res => {
-                console.log(res);
                 setLikers(res?.data)
-
             })
             .catch(err => {
                 console.log(err);

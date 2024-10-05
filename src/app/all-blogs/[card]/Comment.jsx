@@ -24,28 +24,22 @@ const Comment = ({ params, refetch1 }) => {
         axiosLink.patch(`/blogs/${params.card}`, { comments })
             .then(res => {
                 console.log(res);
-                if (res.data) { 
+                if (res.data) {
                     refetch()
                     refetch1()
                     commentInput.current.value.reset()
                 }
-
-
             })
             .catch(err => {
                 console.log(err);
-
             })
     }
 
     const handleNavigate = (email) => {
-        console.log(email);
-
         const userEmail = email.split("@")
         if (userEmail) {
             route.push(`/profile/${userEmail[0]}`)
         }
-
     }
 
     return (
@@ -69,7 +63,7 @@ const Comment = ({ params, refetch1 }) => {
                                         <div className='flex justify-between'>
                                             <div className='flex gap-2'>
                                                 <img className='w-12 h-12 rounded-full object-cover object-top' src={e.picture} alt="" />
-                                                <h1 onClick={()=>handleNavigate(e.email)} className='my-auto cursor-pointer text-lg font-semibold'>{e.name}</h1>
+                                                <h1 onClick={() => handleNavigate(e.email)} className='my-auto cursor-pointer text-lg font-semibold'>{e.name}</h1>
                                             </div>
                                             <div className='my-auto'>
                                                 <Rating readOnly value={e?.ratting} ></Rating>
