@@ -13,11 +13,11 @@ const UserPost = ({ email, name, image }) => {
     const [more, setmore] = useState(true);
     // console.log(data);
     const fetchMoreData = () => {
-        if (limit == length) {
+        if (limit == data.length) {
             setmore(false)
             return
         }
-        if (limit < length) {
+        if (limit < data.length) {
             setLimit((e) => e + 1)
             setmore(true)
             return

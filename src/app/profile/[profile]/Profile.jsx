@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext } from 'react';
+import React, { use, useContext, useEffect, useState } from 'react';
 import UserPost from './UserPost';
 import useFetch1 from '@/app/Hooks/useFetch1';
 import { ContextSource } from '@/app/ContextAPI/ContextAPI';
@@ -7,24 +7,46 @@ import useAxios, { AxiosSource } from '@/app/Hooks/useAxios';
 
 const Profile = ({ id }) => {
     const [data, refetch] = useFetch1('users', id?.profile)
+    const [userID, setuserID] = useState(null);
     const { user } = useContext(ContextSource)
     const axiosLink = useAxios(AxiosSource)
 
+    console.log(data);
 
-    const handleFollowing = (id) => {
-        // console.log(email);
 
-        axiosLink.patch(`/user/${user?.email}`, {id})
+    if (user) {
+        axiosLink.get(`/users?data=${user?.email}`)
             .then(res => {
-                console.log(res);
-
+                setuserID(res.data._id)
             })
             .catch(err => {
                 console.log(err);
-
             })
     }
 
+    const handleFollowing = (idx) => {
+
+        axiosLink.patch(`/following/${userID}`, { idx })
+            .then(res => {
+                // console.log(res);
+                refetch()
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const handleUnfollow = (idx) => {
+        axiosLink.patch(`/unfollow/${userID}`, { idx })
+            .then(res => {
+                console.log(res);
+                refetch()
+            })
+
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
         <section>
@@ -43,15 +65,20 @@ const Profile = ({ id }) => {
                                 <h1 className='text-xl font-bold my-3'>{data?.Name}</h1>
                                 <div>
                                     {
-                                        user?.email?.includes(id.profile) ?
+
+                                        user?.email.includes(id.profile) ?
                                             ""
                                             :
-                                            <button onClick={() => handleFollowing(data?._id)} id='button' className='font-bold p-1'>Follow</button>
+                                            data?.Followers.find(e => e._id == userID) ?
+                                                <button onClick={() => handleUnfollow(data?._id)} id='button' className='font-bold p-1'>Following</button>
+                                                :
+                                                <button onClick={() => handleFollowing(data?._id)} id='button' className='font-bold p-1'>Follow</button>
                                     }
                                 </div>
-                                <div className='gap-5 flex justify-center my-2 font-semibold'>
-                                    <button>Followers</button>
-                                    <button>Following</button>
+                                <div className='gap-5 flex justify-center my-2 '>
+                                    <button className='font-bold'>{data?.Followers.length > 0 ? data?.Followers.length : 0} Followers</button>
+                                    <button className='font-bold'>{data?.Followings.length > 0 ? data?.Followings.length : 0}  Following</button>
+
                                 </div>
                             </div>
                     }

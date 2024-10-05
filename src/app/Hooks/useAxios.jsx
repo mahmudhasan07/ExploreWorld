@@ -2,8 +2,8 @@ import axios from 'axios';
 import React from 'react';
 
 export const AxiosSource = axios.create({
-    baseURL: 'https://explore-backend-production.up.railway.app',
-    // baseURL: 'http://localhost:2000',
+    // baseURL: 'https://explore-backend-production.up.railway.app',
+    baseURL: 'http://localhost:2000',
     withCredentials: true
 
 });
