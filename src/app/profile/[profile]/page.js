@@ -4,12 +4,16 @@ import Profile from "./Profile";
 
 export const generateMetadata = async ({ params }) => {
     const axiosLink = useAxios(AxiosSource)
-    const data  = await axiosLink.get(`/users?data=${params?.profile}`)
-    
+    const data = await axiosLink.get(`/users?data=${params?.profile}`)
+
     return {
         title: data?.data?.Name,
         openGraph: {
-            images:   data?.data?.Image,
+            images: [{
+                url: data?.data?.Image,
+                width: 800,
+                height: 600,
+            },]
         },
         icons: {
             icon: data?.data?.Image,

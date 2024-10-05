@@ -2,7 +2,10 @@ import Login from "./Login";
 import Registration from "./Registration";
 
 export const metadata = {
-    title: "LogIn"
+    title: "LogIn",
+    icons: {
+        icon: "https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png"
+    }
 }
 export default function Authorization() {
     return (

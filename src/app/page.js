@@ -3,12 +3,19 @@ import Lifestyle from "./components/lifestyle/Lifestyle";
 import Support from "./components/Contact/Support";
 import TopReview from "./components/TopReview/TopReview";
 
-export const metadata ={
+export const metadata = {
   title: "ExploreSphere Travel",
   description: "Explore the world with ExploreSphere Travel",
+  icons: {
+    icon: "https://i.ibb.co/f9g36Zz/exploresphere-high-resolution-logo-transparent-1.png"
+  },
+  openGraph: {
+    images: "https://res.cloudinary.com/daudgshta/image/upload/v1728155408/exploreworld_zxxy0k.png"
+  }
+
 }
 
-export default function Home() {  
+export default function Home() {
   return (
     <>
       <Banner></Banner>
