@@ -4,6 +4,8 @@ This is a Blog site , which is build base on Next.js  and Tailwind CSS. This sit
 <h2>Technology Used:</h2> 
 Next.js , Tailwind CSS, framer-motion, React Hook Form, TanStack Query, Redux , AWS-Cognito. Infinity scroll-bar, Swiper.JS
 
+<h2>Website Links:</h2>
+Live link : https://explore-world-theta.vercel.app
 
  <h2>Features:</h2> 
  • In the navbar routes and cards section if you hover one to another route or card, you will see a background animation 
