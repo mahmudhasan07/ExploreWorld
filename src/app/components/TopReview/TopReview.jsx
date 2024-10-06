@@ -3,6 +3,7 @@ import useFetch1 from '@/app/Hooks/useFetch1';
 import React, { useRef } from 'react';
 import {motion, useInView} from 'framer-motion'
 import "./TopReview.css"
+import Loader from '../Loader/Loader';
 
 const TopReview = () => {
     const [data] = useFetch1("topRatting")
@@ -14,7 +15,7 @@ const TopReview = () => {
             <div className='flex justify-center gap-10 my-5'>
                 {
                     data == "l"?
-                    "loading"
+                    <Loader></Loader>
                     :
                     data?.slice(0,4)?.map((e,idx)=> 
                     <motion.div

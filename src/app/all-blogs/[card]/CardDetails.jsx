@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Rating } from '@mui/material';
 import Comment from './Comment';
 import Likes from './Likes';
+import Loader from '@/app/components/Loader/Loader';
 
 const CardDetails = ({ params }) => {
     const [like, setLike] = useState(false);
@@ -78,7 +79,7 @@ const CardDetails = ({ params }) => {
         <section>
             {
                 data == "l" ?
-                    "loading"
+                    <Loader></Loader>
                     :
                     <div id='mainDiv'>
                         <div className='flex justify-around '>
