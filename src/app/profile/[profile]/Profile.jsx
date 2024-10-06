@@ -11,9 +11,6 @@ const Profile = ({ id }) => {
     const { user } = useContext(ContextSource)
     const axiosLink = useAxios(AxiosSource)
 
-    console.log(data);
-
-
     if (user) {
         axiosLink.get(`/users?data=${user?.email}`)
             .then(res => {
@@ -29,7 +26,6 @@ const Profile = ({ id }) => {
         if (user?.email) {
             axiosLink.patch(`/following/${userID}`, { idx })
                 .then(res => {
-                    // console.log(res);
                     refetch()
                 })
                 .catch(err => {

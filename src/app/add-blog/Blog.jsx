@@ -40,13 +40,13 @@ const Blog = () => {
             fromData.append("upload_preset", 'blog_images')
             axios.post('https://api.cloudinary.com/v1_1/daudgshta/upload', fromData)
                 .then(res => {
-                    hostImages.push(res?.data?.url)
+                    hostImages.push(res?.data?.secure_url)
                     if (hostImages?.length == imageArray?.length) {
                         console.log(hostImages);
                         const blogDetails = { name, location, details, email, hostImages, date }
                         console.log(blogDetails);
                         axiosLink.post("/blogs", blogDetails)
-                            .then(res => {
+                            .then(res => { 
                                 console.log(res.data);
                                 Swal.fire({
                                     title: "Success",
