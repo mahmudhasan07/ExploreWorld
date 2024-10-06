@@ -1,5 +1,10 @@
 <h2>Website Overview</h2>
 This is a Blog site , which is build base on Next.js  and Tailwind CSS. This site is used to share user travel experience and e their enjoy movement on this website. For user attractive I use framer-motion  for animation.
+
+<h2>Technology Used:</h2> 
+Next.js , Tailwind CSS, framer-motion, React Hook Form, TanStack Query, Redux , AWS-Cognito. Infinity scroll-bar, Swiper.JS
+
+
  <h2>Features:</h2> 
  • In the navbar routes and cards section if you hover one to another route or card, you will see a background animation 
 • I use a search filter to find the place or location they want to travel.
