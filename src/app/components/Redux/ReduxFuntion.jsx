@@ -20,8 +20,6 @@ const CreateUser = createAsyncThunk(
       if (err) {
         return err
       }
-      console.log(res);
-
       return res
 
     })
@@ -32,8 +30,6 @@ const CreateUser = createAsyncThunk(
 const LogInUser = createAsyncThunk(
   "auth/LoginUser",
   async ({ email, password }) => {
-    console.log(email, password);
-
     const User = new CognitoUser({
       Pool: useAuth,
       Username: email
@@ -43,16 +39,6 @@ const LogInUser = createAsyncThunk(
       Password: password
     })
 
-    // User.authenticateUser(getUser, ({
-    //   onSuccess: (res) => {
-    //     console.log(res);
-    //     return res
-    //   },
-    //   onFailure: (err) => {
-    //     console.log(err);
-    //     return err
-    //   }
-    // }))
 
     return await new Promise((resolve, reject) => {
       User.authenticateUser(getUser, ({
